@@ -1,0 +1,135 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Zeno.App.ViewModels"
+             x:Class="Zeno.App.Views.TaskDetailPanel"
+             x:DataType="vm:TaskDetailViewModel"
+             Width="300">
+
+  <Border Background="{DynamicResource ZenoBgSecondary}"
+          BorderBrush="{DynamicResource ZenoBorderDefault}"
+          BorderThickness="1,0,0,0">
+    <DockPanel Margin="20">
+
+      <!-- Header -->
+      <Grid DockPanel.Dock="Top" ColumnDefinitions="*,Auto" Margin="0,0,0,20">
+        <TextBlock Grid.Column="0"
+                   Text="Detalhes"
+                   FontSize="15" FontWeight="SemiBold"
+                   Foreground="{DynamicResource ZenoTextPrimary}"
+                   VerticalAlignment="Center"/>
+        <Button Grid.Column="1"
+                Command="{Binding CancelCommand}"
+                Background="Transparent"
+                BorderThickness="0"
+                Padding="4"
+                Foreground="{DynamicResource ZenoTextTertiary}">
+          ✕
+        </Button>
+      </Grid>
+
+      <!-- Botões de ação no rodapé -->
+      <StackPanel DockPanel.Dock="Bottom" Spacing="8" Margin="0,16,0,0">
+        <Button Command="{Binding SaveCommand}"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Center"
+                Background="{DynamicResource ZenoAccent}"
+                Foreground="White"
+                CornerRadius="8"
+                Padding="0,10"
+                FontSize="13">
+          Salvar alterações
+        </Button>
+        <Button Command="{Binding DeleteCommand}"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Center"
+                Background="Transparent"
+                BorderBrush="{DynamicResource ZenoDanger}"
+                BorderThickness="1"
+                Foreground="{DynamicResource ZenoDanger}"
+                CornerRadius="8"
+                Padding="0,10"
+                FontSize="13">
+          Excluir tarefa
+        </Button>
+      </StackPanel>
+
+      <!-- Campos -->
+      <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Spacing="16">
+
+          <!-- Título -->
+          <StackPanel Spacing="6">
+            <TextBlock Text="TÍTULO"
+                       FontSize="10" FontWeight="SemiBold"
+                       Foreground="{DynamicResource ZenoTextTertiary}"
+                       LetterSpacing="1"/>
+            <TextBox Text="{Binding Title}"
+                     Background="{DynamicResource ZenoBgTertiary}"
+                     BorderBrush="{DynamicResource ZenoBorderDefault}"
+                     BorderThickness="1"
+                     CornerRadius="8"
+                     Foreground="{DynamicResource ZenoTextPrimary}"
+                     Padding="12,10"
+                     FontSize="14"/>
+          </StackPanel>
+
+          <!-- Prioridade -->
+          <StackPanel Spacing="6">
+            <TextBlock Text="PRIORIDADE"
+                       FontSize="10" FontWeight="SemiBold"
+                       Foreground="{DynamicResource ZenoTextTertiary}"
+                       LetterSpacing="1"/>
+            <ComboBox ItemsSource="{Binding Priorities}"
+                      SelectedIndex="{Binding PriorityIndex}"
+                      HorizontalAlignment="Stretch"
+                      Background="{DynamicResource ZenoBgTertiary}"
+                      BorderBrush="{DynamicResource ZenoBorderDefault}"
+                      Foreground="{DynamicResource ZenoTextPrimary}"
+                      Padding="12,10"
+                      CornerRadius="8"/>
+          </StackPanel>
+
+          <!-- Data -->
+          <StackPanel Spacing="6">
+            <TextBlock Text="DATA DE VENCIMENTO"
+                       FontSize="10" FontWeight="SemiBold"
+                       Foreground="{DynamicResource ZenoTextTertiary}"
+                       LetterSpacing="1"/>
+            <TextBox Text="{Binding DueDate}"
+                     PlaceholderText="aaaa-mm-dd"
+                     Background="{DynamicResource ZenoBgTertiary}"
+                     BorderBrush="{DynamicResource ZenoBorderDefault}"
+                     BorderThickness="1"
+                     CornerRadius="8"
+                     Foreground="{DynamicResource ZenoTextPrimary}"
+                     Padding="12,10"
+                     FontSize="14"/>
+          </StackPanel>
+
+          <!-- Notas -->
+          <StackPanel Spacing="6">
+            <TextBlock Text="NOTAS"
+                       FontSize="10" FontWeight="SemiBold"
+                       Foreground="{DynamicResource ZenoTextTertiary}"
+                       LetterSpacing="1"/>
+            <TextBox Text="{Binding Notes}"
+                     PlaceholderText="Adicionar notas..."
+                     AcceptsReturn="True"
+                     TextWrapping="Wrap"
+                     Height="120"
+                     Background="{DynamicResource ZenoBgTertiary}"
+                     BorderBrush="{DynamicResource ZenoBorderDefault}"
+                     BorderThickness="1"
+                     CornerRadius="8"
+                     Foreground="{DynamicResource ZenoTextPrimary}"
+                     Padding="12,10"
+                     FontSize="14"
+                     VerticalContentAlignment="Top"/>
+          </StackPanel>
+
+        </StackPanel>
+      </ScrollViewer>
+
+    </DockPanel>
+  </Border>
+</UserControl>

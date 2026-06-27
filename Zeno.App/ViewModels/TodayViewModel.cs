@@ -37,29 +37,39 @@ public partial class TaskItemViewModel : ObservableObject
     [ObservableProperty]
     private bool _isCompleted;
 
+    [ObservableProperty]
+    private bool _isSelected;
+
     public TaskItemViewModel(ZenoTask task, TodayViewModel parent)
     {
-        Task             = task;
-        _parent          = parent;
-        _suppressChange  = true;
-        _isCompleted     = task.IsCompleted;
-        _suppressChange  = false;
+        Task            = task;
+        _parent         = parent;
+        _suppressChange = true;
+        _isCompleted    = task.IsCompleted;
+        _suppressChange = false;
     }
 
     partial void OnIsCompletedChanged(bool value)
     {
         if (_suppressChange) return;
-
-        if (value)
-        {
-            _parent.CompleteTask(this);
-        }
+        if (value) _parent.CompleteTask(this);
         else
         {
             DataService.Instance.Tasks.Uncomplete(Task.Id);
             _parent.UncompleteTask(this);
         }
     }
+
+    // Método público para forçar refresh das propriedades após edição
+    public void NotifyTitleChanged()
+    {
+        OnPropertyChanged(nameof(Title));
+        OnPropertyChanged(nameof(Priority));
+        OnPropertyChanged(nameof(PriorityColor));
+    }
+
+    [RelayCommand]
+    private void Select() => _parent.SelectTask(this);
 }
 
 public partial class TodayViewModel : ViewModelBase
@@ -85,6 +95,12 @@ public partial class TodayViewModel : ViewModelBase
     [ObservableProperty]
     private bool _hasCompleted;
 
+    [ObservableProperty]
+    private TaskDetailViewModel? _selectedTask;
+
+    [ObservableProperty]
+    private bool _isDetailOpen;
+
     public TodayViewModel()
     {
         TodayLabel = DateTime.Now.ToString(
@@ -109,7 +125,7 @@ public partial class TodayViewModel : ViewModelBase
 
     private void UpdateCounters()
     {
-        PendingCount = Tasks.Count;
+        PendingCount   = Tasks.Count;
         CompletedCount = CompletedTasks.Count;
         HasCompleted   = CompletedTasks.Count > 0;
     }
@@ -148,6 +164,30 @@ public partial class TodayViewModel : ViewModelBase
         CompletedTasks.Remove(item);
         Tasks.Add(item);
         UpdateCounters();
+    }
+
+    public void SelectTask(TaskItemViewModel item)
+    {
+        foreach (var t in Tasks.Concat(CompletedTasks))
+            t.IsSelected = false;
+
+        item.IsSelected = true;
+        SelectedTask    = new TaskDetailViewModel(item, this);
+        IsDetailOpen    = true;
+    }
+
+    [RelayCommand]
+    private void CloseDetail()
+    {
+        IsDetailOpen = false;
+        SelectedTask = null;
+        foreach (var t in Tasks.Concat(CompletedTasks))
+            t.IsSelected = false;
+    }
+
+    public void RefreshItem(TaskItemViewModel item)
+    {
+        item.NotifyTitleChanged();
     }
 
     [RelayCommand]

@@ -1,184 +1,172 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:Zeno.App.ViewModels"
+             xmlns:views="using:Zeno.App.Views"
              x:Class="Zeno.App.Views.TodayView"
-             x:DataType="vm:TodayViewModel">
+             x:DataType="vm:TodayViewModel"
+             x:Name="Root">
 
-  <DockPanel>
+  <Grid ColumnDefinitions="*,Auto">
 
-    <!-- Header -->
-    <Border DockPanel.Dock="Top" Padding="28,24,28,0">
-      <Grid ColumnDefinitions="*,Auto">
+    <!-- Lista principal -->
+    <DockPanel Grid.Column="0">
 
-        <StackPanel Grid.Column="0">
-          <TextBlock Text="Tarefas de hoje"
-                     FontSize="20" FontWeight="SemiBold"
-                     Foreground="{DynamicResource ZenoTextPrimary}"/>
-          <TextBlock Text="{Binding TodayLabel}"
-                     FontSize="13"
-                     Foreground="{DynamicResource ZenoTextSecondary}"
-                     Margin="0,2,0,0"/>
-        </StackPanel>
-
-        <!-- Contadores -->
-        <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="16"
-                    VerticalAlignment="Center">
-          <StackPanel Orientation="Horizontal" Spacing="6">
-            <Border Width="8" Height="8" CornerRadius="4"
-                    Background="{DynamicResource ZenoAccent}"
-                    VerticalAlignment="Center"/>
-            <TextBlock FontSize="13"
-                       Foreground="{DynamicResource ZenoTextSecondary}">
-              <Run Text="{Binding PendingCount}"/>
-              <Run Text=" pendentes"/>
-            </TextBlock>
+      <!-- Header -->
+      <Border DockPanel.Dock="Top" Padding="28,24,28,0">
+        <Grid ColumnDefinitions="*,Auto">
+          <StackPanel Grid.Column="0">
+            <TextBlock Text="Tarefas de hoje"
+                       FontSize="20" FontWeight="SemiBold"
+                       Foreground="{DynamicResource ZenoTextPrimary}"/>
+            <TextBlock Text="{Binding TodayLabel}"
+                       FontSize="13"
+                       Foreground="{DynamicResource ZenoTextSecondary}"
+                       Margin="0,2,0,0"/>
           </StackPanel>
-          <StackPanel Orientation="Horizontal" Spacing="6">
-            <Border Width="8" Height="8" CornerRadius="4"
-                    Background="{DynamicResource ZenoSuccess}"
-                    VerticalAlignment="Center"/>
-            <TextBlock FontSize="13"
-                       Foreground="{DynamicResource ZenoTextSecondary}">
-              <Run Text="{Binding CompletedCount}"/>
-              <Run Text=" concluídas"/>
-            </TextBlock>
+          <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="16"
+                      VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal" Spacing="6">
+              <Border Width="8" Height="8" CornerRadius="4"
+                      Background="{DynamicResource ZenoAccent}"
+                      VerticalAlignment="Center"/>
+              <TextBlock FontSize="13"
+                         Foreground="{DynamicResource ZenoTextSecondary}">
+                <Run Text="{Binding PendingCount}"/>
+                <Run Text=" pendentes"/>
+              </TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="6">
+              <Border Width="8" Height="8" CornerRadius="4"
+                      Background="{DynamicResource ZenoSuccess}"
+                      VerticalAlignment="Center"/>
+              <TextBlock FontSize="13"
+                         Foreground="{DynamicResource ZenoTextSecondary}">
+                <Run Text="{Binding CompletedCount}"/>
+                <Run Text=" concluídas"/>
+              </TextBlock>
+            </StackPanel>
           </StackPanel>
-        </StackPanel>
+        </Grid>
+      </Border>
 
-      </Grid>
-    </Border>
+      <!-- Input -->
+      <Border DockPanel.Dock="Top" Margin="28,16,28,0"
+              Background="{DynamicResource ZenoBgSecondary}"
+              BorderBrush="{DynamicResource ZenoBorderDefault}"
+              BorderThickness="1" CornerRadius="10">
+        <Grid ColumnDefinitions="*,Auto" Margin="16,0">
+          <TextBox Grid.Column="0"
+                   Text="{Binding NewTaskTitle}"
+                   PlaceholderText="Adicionar nova tarefa..."
+                   Background="Transparent"
+                   BorderThickness="0"
+                   FontSize="14"
+                   Foreground="{DynamicResource ZenoTextPrimary}"
+                   Padding="0,12">
+            <TextBox.KeyBindings>
+              <KeyBinding Gesture="Return" Command="{Binding AddTaskCommand}"/>
+            </TextBox.KeyBindings>
+          </TextBox>
+          <Button Grid.Column="1"
+                  Command="{Binding AddTaskCommand}"
+                  Background="{DynamicResource ZenoAccent}"
+                  Foreground="White"
+                  CornerRadius="6"
+                  Padding="16,6"
+                  Margin="0,6"
+                  FontSize="13">
+            Adicionar
+          </Button>
+        </Grid>
+      </Border>
 
-    <!-- Input nova tarefa -->
-    <Border DockPanel.Dock="Top" Margin="28,16,28,0"
-            Background="{DynamicResource ZenoBgSecondary}"
-            BorderBrush="{DynamicResource ZenoBorderDefault}"
-            BorderThickness="1" CornerRadius="10">
-      <Grid ColumnDefinitions="*,Auto" Margin="16,0">
-        <TextBox Grid.Column="0"
-                 Text="{Binding NewTaskTitle}"
-                 PlaceholderText="Adicionar nova tarefa..."
-                 Background="Transparent"
-                 BorderThickness="0"
-                 FontSize="14"
-                 Foreground="{DynamicResource ZenoTextPrimary}"
-                 Padding="0,12">
-          <TextBox.KeyBindings>
-            <KeyBinding Gesture="Return" Command="{Binding AddTaskCommand}"/>
-          </TextBox.KeyBindings>
-        </TextBox>
-        <Button Grid.Column="1"
-                Command="{Binding AddTaskCommand}"
-                Background="{DynamicResource ZenoAccent}"
-                Foreground="White"
-                CornerRadius="6"
-                Padding="16,6"
-                Margin="0,6"
-                FontSize="13">
-          Adicionar
-        </Button>
-      </Grid>
-    </Border>
+      <!-- Lista -->
+      <ScrollViewer Margin="28,12,28,24" VerticalScrollBarVisibility="Auto">
+        <StackPanel Spacing="4">
 
-    <!-- Lista -->
-    <ScrollViewer Margin="28,12,28,24" VerticalScrollBarVisibility="Auto">
-      <StackPanel Spacing="4">
+          <!-- Pendentes -->
+          <ItemsControl ItemsSource="{Binding Tasks}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate x:DataType="vm:TaskItemViewModel">
+                <Border CornerRadius="10" Margin="0,0,0,4"
+                        BorderThickness="1"
+                        BorderBrush="{DynamicResource ZenoBorderSubtle}"
+                        Background="{DynamicResource ZenoBgSecondary}">
+                  <Grid ColumnDefinitions="Auto,*,Auto" Margin="16,14">
+                    <CheckBox Grid.Column="0"
+                              IsChecked="{Binding IsCompleted}"
+                              VerticalAlignment="Center"
+                              Margin="0,0,12,0"/>
+                    <StackPanel Grid.Column="1" Spacing="5" VerticalAlignment="Center">
+                      <TextBlock Text="{Binding Title}"
+                                 FontSize="14"
+                                 Foreground="{DynamicResource ZenoTextPrimary}"/>
+                      <Border CornerRadius="4" Padding="6,2" HorizontalAlignment="Left">
+                        <Border.Background>
+                          <SolidColorBrush Color="{Binding PriorityColor}"/>
+                        </Border.Background>
+                        <TextBlock Text="{Binding Priority}"
+                                   FontSize="10" FontWeight="Medium"
+                                   Foreground="White"/>
+                      </Border>
+                    </StackPanel>
+                    <Button Grid.Column="2"
+                            Command="{Binding SelectCommand}"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Padding="8,4"
+                            Foreground="{DynamicResource ZenoTextTertiary}"
+                            FontSize="16"
+                            VerticalAlignment="Center">
+                      ···
+                    </Button>
+                  </Grid>
+                </Border>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
 
-        <!-- Estado vazio -->
-        <Border IsVisible="{Binding PendingCount, 
-                            Converter={x:Static ObjectConverters.IsNull}}"
-                Padding="0,40">
-          <StackPanel HorizontalAlignment="Center" Spacing="8">
-            <TextBlock Text="Nenhuma tarefa para hoje"
-                       FontSize="14"
-                       Foreground="{DynamicResource ZenoTextTertiary}"
-                       HorizontalAlignment="Center"/>
-            <TextBlock Text="Adicione uma tarefa acima para começar"
-                       FontSize="12"
-                       Foreground="{DynamicResource ZenoTextTertiary}"
-                       HorizontalAlignment="Center"/>
-          </StackPanel>
-        </Border>
+          <!-- Concluídas -->
+          <TextBlock Text="Concluídas"
+                     IsVisible="{Binding HasCompleted}"
+                     FontSize="11" FontWeight="SemiBold"
+                     Foreground="{DynamicResource ZenoTextTertiary}"
+                     Margin="4,16,0,6"/>
 
-        <!-- Tarefas pendentes -->
-        <ItemsControl ItemsSource="{Binding Tasks}">
-          <ItemsControl.ItemTemplate>
-            <DataTemplate x:DataType="vm:TaskItemViewModel">
-              <Border Background="{DynamicResource ZenoBgSecondary}"
-                      BorderBrush="{DynamicResource ZenoBorderSubtle}"
-                      BorderThickness="1" CornerRadius="10"
-                      Margin="0,0,0,4">
-                <Grid ColumnDefinitions="Auto,*,Auto,Auto" Margin="16,14">
-
-                  <!-- Checkbox -->
-                  <CheckBox Grid.Column="0"
-                            IsChecked="{Binding IsCompleted}"
-                            VerticalAlignment="Center"
-                            Margin="0,0,12,0"/>
-
-                  <!-- Título + badge de prioridade -->
-                  <StackPanel Grid.Column="1" Spacing="5" VerticalAlignment="Center">
-                    <TextBlock Text="{Binding Title}"
+          <ItemsControl ItemsSource="{Binding CompletedTasks}"
+                        IsVisible="{Binding HasCompleted}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate x:DataType="vm:TaskItemViewModel">
+                <Border Background="{DynamicResource ZenoBgTertiary}"
+                        BorderBrush="{DynamicResource ZenoBorderSubtle}"
+                        BorderThickness="1" CornerRadius="10"
+                        Margin="0,0,0,4" Opacity="0.55">
+                  <Grid ColumnDefinitions="Auto,*" Margin="16,12">
+                    <CheckBox Grid.Column="0"
+                              IsChecked="{Binding IsCompleted}"
+                              VerticalAlignment="Center"
+                              Margin="0,0,12,0"/>
+                    <TextBlock Grid.Column="1"
+                               Text="{Binding Title}"
                                FontSize="14"
-                               Foreground="{DynamicResource ZenoTextPrimary}"/>
-                    <Border CornerRadius="4" Padding="6,2"
-                            HorizontalAlignment="Left">
-                      <Border.Background>
-                        <SolidColorBrush Color="{Binding PriorityColor}"/>
-                      </Border.Background>
-                      <TextBlock Text="{Binding Priority}"
-                                 FontSize="10" FontWeight="Medium"
-                                 Foreground="White"/>
-                    </Border>
-                  </StackPanel>
+                               Foreground="{DynamicResource ZenoTextSecondary}"
+                               TextDecorations="Strikethrough"
+                               VerticalAlignment="Center"/>
+                  </Grid>
+                </Border>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
 
-                  <!-- Horário -->
-                  <TextBlock Grid.Column="2"
-                             Text="{Binding DueTime}"
-                             FontSize="12"
-                             Foreground="{DynamicResource ZenoTextTertiary}"
-                             VerticalAlignment="Center"
-                             Margin="12,0"/>
+        </StackPanel>
+      </ScrollViewer>
+    </DockPanel>
 
-                </Grid>
-              </Border>
-            </DataTemplate>
-          </ItemsControl.ItemTemplate>
-        </ItemsControl>
+    <!-- Painel de detalhe — IsVisible no TodayViewModel, DataContext no SelectedTask -->
+    <Border Grid.Column="1"
+            IsVisible="{Binding IsDetailOpen}">
+      <views:TaskDetailPanel DataContext="{Binding SelectedTask}"/>
+    </Border>
 
-        <!-- Seção concluídas -->
-        <TextBlock Text="Concluídas"
-                   IsVisible="{Binding HasCompleted}"
-                   FontSize="11" FontWeight="SemiBold"
-                   Foreground="{DynamicResource ZenoTextTertiary}"
-                   Margin="4,16,0,6"/>
-
-        <ItemsControl ItemsSource="{Binding CompletedTasks}"
-                      IsVisible="{Binding HasCompleted}">
-          <ItemsControl.ItemTemplate>
-            <DataTemplate x:DataType="vm:TaskItemViewModel">
-              <Border Background="{DynamicResource ZenoBgTertiary}"
-                      BorderBrush="{DynamicResource ZenoBorderSubtle}"
-                      BorderThickness="1" CornerRadius="10"
-                      Margin="0,0,0,4" Opacity="0.55">
-                <Grid ColumnDefinitions="Auto,*" Margin="16,12">
-                  <CheckBox Grid.Column="0"
-                            IsChecked="{Binding IsCompleted}"
-                            VerticalAlignment="Center"
-                            Margin="0,0,12,0"/>
-                  <TextBlock Grid.Column="1"
-                             Text="{Binding Title}"
-                             FontSize="14"
-                             Foreground="{DynamicResource ZenoTextSecondary}"
-                             TextDecorations="Strikethrough"
-                             VerticalAlignment="Center"/>
-                </Grid>
-              </Border>
-            </DataTemplate>
-          </ItemsControl.ItemTemplate>
-        </ItemsControl>
-
-      </StackPanel>
-    </ScrollViewer>
-
-  </DockPanel>
+  </Grid>
 </UserControl>
