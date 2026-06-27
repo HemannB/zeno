@@ -17,9 +17,11 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty] private string _todayBg     = "#1E1E3A";
     [ObservableProperty] private string _projectsBg  = "Transparent";
     [ObservableProperty] private string _pomodorooBg = "Transparent";
+    [ObservableProperty] private string _waterBg     = "Transparent";
     [ObservableProperty] private string _todayFg     = "#818CF8";
     [ObservableProperty] private string _projectsFg  = "#9494A3";
     [ObservableProperty] private string _pomodoroFg  = "#9494A3";
+    [ObservableProperty] private string _waterFg     = "#9494A3";
 
     private readonly Dictionary<string, Control> _views = new();
 
@@ -31,14 +33,20 @@ public partial class MainWindowViewModel : ViewModelBase
 
     private void SetPage(string page)
     {
-        CurrentPage  = page;
+        CurrentPage = page;
 
-        TodayBg     = page == "Hoje"      ? "#1E1E3A" : "Transparent";
-        ProjectsBg  = page == "Projetos"  ? "#1E1E3A" : "Transparent";
-        PomodorooBg = page == "Pomodoro"  ? "#1E1E3A" : "Transparent";
-        TodayFg     = page == "Hoje"      ? "#818CF8" : "#9494A3";
-        ProjectsFg  = page == "Projetos"  ? "#818CF8" : "#9494A3";
-        PomodoroFg  = page == "Pomodoro"  ? "#818CF8" : "#9494A3";
+        TodayBg     = page == "Hoje"       ? "#1E1E3A" : "Transparent";
+        ProjectsBg  = page == "Projetos"   ? "#1E1E3A" : "Transparent";
+        PomodorooBg = page == "Pomodoro"   ? "#1E1E3A" : "Transparent";
+        WaterBg     = page == "Hidratação" ? "#1E1E3A" : "Transparent";
+        TodayFg     = page == "Hoje"       ? "#818CF8" : "#9494A3";
+        ProjectsFg  = page == "Projetos"   ? "#818CF8" : "#9494A3";
+        PomodoroFg  = page == "Pomodoro"   ? "#818CF8" : "#9494A3";
+        WaterFg     = page == "Hidratação" ? "#818CF8" : "#9494A3";
+
+        // Projetos e Hidratação não são cacheados
+        if (page == "Projetos")   _views.Remove("Projetos");
+        if (page == "Hidratação") _views.Remove("Hidratação");
 
         CurrentView = GetOrCreate(page);
     }
@@ -50,9 +58,10 @@ public partial class MainWindowViewModel : ViewModelBase
 
         Control view = page switch
         {
-            "Projetos" => CreateProjectsView(),
-            "Pomodoro" => new PomodoroView(),
-            _          => new TodayView()
+            "Projetos"   => CreateProjectsView(),
+            "Pomodoro"   => new PomodoroView(),
+            "Hidratação" => new WaterView(),
+            _            => new TodayView()
         };
 
         _views[page] = view;
@@ -63,17 +72,14 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         var view = new ProjectsView();
 
-        // Conecta o callback de abrir projeto
         if (view.DataContext is ProjectsViewModel vm)
         {
             vm.OnOpenProject = project =>
             {
                 var projectView = new ProjectTasksView(project);
-                // Não cacheia — sempre recria para refletir tarefas atuais
                 CurrentPage = project.Name;
                 CurrentView = projectView;
 
-                // Reseta highlight da sidebar
                 TodayBg    = "Transparent";
                 ProjectsBg = "Transparent";
                 TodayFg    = "#9494A3";
