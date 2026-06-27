@@ -66,6 +66,13 @@
             <TextBlock Text="Projetos" FontSize="13" Foreground="{Binding ProjectsFg}"/>
           </Button>
 
+          <Button Command="{Binding NavigateCommand}" CommandParameter="Pomodoro"
+                  HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                  BorderThickness="0" Padding="12,10" CornerRadius="8"
+                  Background="{Binding PomodorooBg}">
+            <TextBlock Text="Pomodoro" FontSize="13" Foreground="{Binding PomodoroFg}"/>
+          </Button>
+
         </StackPanel>
 
         <!-- Rodapé -->
