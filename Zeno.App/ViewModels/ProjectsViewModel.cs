@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -9,11 +10,11 @@ namespace Zeno.App.ViewModels;
 
 public partial class ProjectItemViewModel : ObservableObject
 {
-    public Project Project  { get; }
-    public int     Id       => Project.Id;
-    public string  Name     => Project.Name;
-    public string  Color    => Project.Color;
-    public int     Count    { get; private set; }
+    public Project Project { get; }
+    public int     Id      => Project.Id;
+    public string  Name    => Project.Name;
+    public string  Color   => Project.Color;
+    public int     Count   { get; private set; }
 
     public ProjectItemViewModel(Project project)
     {
@@ -27,9 +28,9 @@ public partial class ProjectsViewModel : ViewModelBase
     [ObservableProperty]
     private ObservableCollection<ProjectItemViewModel> _projects = [];
 
-    [ObservableProperty] private string _newProjectName  = string.Empty;
-    [ObservableProperty] private string _selectedColor   = "#6366F1";
-    [ObservableProperty] private bool   _isAdding        = false;
+    [ObservableProperty] private string _newProjectName = string.Empty;
+    [ObservableProperty] private string _selectedColor  = "#6366F1";
+    [ObservableProperty] private bool   _isAdding       = false;
 
     public List<string> AvailableColors { get; } =
     [
@@ -37,6 +38,9 @@ public partial class ProjectsViewModel : ViewModelBase
         "#F59E0B", "#F43F5E", "#EC4899", "#F97316",
         "#14B8A6", "#64748B"
     ];
+
+    // Callback para o MainWindowViewModel abrir a view do projeto
+    public Action<ProjectItemViewModel>? OnOpenProject { get; set; }
 
     public ProjectsViewModel() => Load();
 
@@ -47,6 +51,10 @@ public partial class ProjectsViewModel : ViewModelBase
             .Select(p => new ProjectItemViewModel(p));
         Projects = new ObservableCollection<ProjectItemViewModel>(items);
     }
+
+    [RelayCommand]
+    private void OpenProject(ProjectItemViewModel project) =>
+        OnOpenProject?.Invoke(project);
 
     [RelayCommand]
     private void StartAdding()
