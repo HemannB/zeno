@@ -16,7 +16,9 @@ public partial class ProjectTasksViewModel : ViewModelBase
     [ObservableProperty] private string _projectColor = "#6366F1";
     [ObservableProperty] private ObservableCollection<TaskItemViewModel> _tasks = [];
     [ObservableProperty] private int    _pendingCount;
-    [ObservableProperty] private string _newTaskTitle = string.Empty;
+    [ObservableProperty] private string _newTaskTitle  = string.Empty;
+    [ObservableProperty] private TaskDetailViewModel? _selectedTask;
+    [ObservableProperty] private bool   _isDetailOpen;
 
     public ProjectTasksViewModel(ProjectItemViewModel project)
     {
@@ -30,11 +32,14 @@ public partial class ProjectTasksViewModel : ViewModelBase
     {
         var tasks = DataService.Instance.Tasks
             .GetByProject(_projectId)
-            .Select(t => new TaskItemViewModel(t, null!));
+            .Select(t => new TaskItemViewModel(t));
 
         Tasks        = new ObservableCollection<TaskItemViewModel>(tasks);
         PendingCount = Tasks.Count(t => !t.IsCompleted);
     }
+
+    private void UpdateCounters() =>
+        PendingCount = Tasks.Count(t => !t.IsCompleted);
 
     [RelayCommand]
     private void AddTask()
@@ -53,9 +58,9 @@ public partial class ProjectTasksViewModel : ViewModelBase
         var id  = DataService.Instance.Tasks.Insert(task);
         task.Id = id;
 
-        Tasks.Add(new TaskItemViewModel(task, null!));
+        Tasks.Add(new TaskItemViewModel(task));
         NewTaskTitle = string.Empty;
-        PendingCount = Tasks.Count(t => !t.IsCompleted);
+        UpdateCounters();
     }
 
     [RelayCommand]
@@ -67,15 +72,36 @@ public partial class ProjectTasksViewModel : ViewModelBase
             DataService.Instance.Tasks.Complete(item.Id);
 
         item.IsCompleted = !item.IsCompleted;
-        PendingCount = Tasks.Count(t => !t.IsCompleted);
+        UpdateCounters();
+    }
+
+    public void SelectTask(TaskItemViewModel item)
+    {
+        foreach (var t in Tasks)
+            t.IsSelected = false;
+
+        item.IsSelected = true;
+        SelectedTask    = new ProjectTaskDetailViewModel(item, this);
+        IsDetailOpen    = true;
     }
 
     [RelayCommand]
-    private void Delete(TaskItemViewModel item)
+    private void CloseDetail()
+    {
+        IsDetailOpen = false;
+        SelectedTask = null;
+        foreach (var t in Tasks)
+            t.IsSelected = false;
+    }
+
+    public void RefreshItem(TaskItemViewModel item) => item.NotifyTitleChanged();
+
+    public void DeleteItem(TaskItemViewModel item)
     {
         DataService.Instance.Tasks.Delete(item.Id);
         Tasks.Remove(item);
-        PendingCount = Tasks.Count(t => !t.IsCompleted);
+        UpdateCounters();
+        CloseDetailCommand.Execute(null);
     }
 
     [RelayCommand]
