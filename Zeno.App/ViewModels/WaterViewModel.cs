@@ -15,27 +15,28 @@ public partial class WaterViewModel : ViewModelBase
     [ObservableProperty] private int    _glasses;
     [ObservableProperty] private int    _goal;
     [ObservableProperty] private double _progress;
-    [ObservableProperty] private string _statusLabel  = string.Empty;
+    [ObservableProperty] private string _statusLabel   = string.Empty;
     [ObservableProperty] private bool   _isGoalReached;
+    [ObservableProperty] private string _quote         = string.Empty;
 
     public WaterViewModel()
     {
-        _log = DataService.Instance.Water.GetToday();
+        _log  = DataService.Instance.Water.GetToday();
+        Quote = QuoteService.GetWaterQuote();
         Refresh();
 
-        // Timer que verifica virada de dia a cada minuto
-        _resetTimer          = new DispatcherTimer { Interval = TimeSpan.FromMinutes(1) };
-        _resetTimer.Tick    += (_, _) => CheckDayReset();
+        _resetTimer       = new DispatcherTimer { Interval = TimeSpan.FromMinutes(1) };
+        _resetTimer.Tick += (_, _) => CheckDayReset();
         _resetTimer.Start();
     }
 
     private void Refresh()
     {
-        Glasses      = _log.Glasses;
-        Goal         = _log.Goal;
-        Progress     = Goal > 0 ? Math.Min(1.0, (double)Glasses / Goal) : 0;
+        Glasses       = _log.Glasses;
+        Goal          = _log.Goal;
+        Progress      = Goal > 0 ? Math.Min(1.0, (double)Glasses / Goal) : 0;
         IsGoalReached = Glasses >= Goal;
-        StatusLabel  = IsGoalReached
+        StatusLabel   = IsGoalReached
             ? "Meta atingida! 🎉"
             : $"{Glasses} de {Goal} copos";
     }
@@ -45,7 +46,8 @@ public partial class WaterViewModel : ViewModelBase
         var today = DataService.Instance.Water.GetToday();
         if (today.Id != _log.Id)
         {
-            _log = today;
+            _log  = today;
+            Quote = QuoteService.GetWaterQuote();
             Refresh();
         }
     }
@@ -53,7 +55,7 @@ public partial class WaterViewModel : ViewModelBase
     [RelayCommand]
     private void AddGlass()
     {
-        if (_log.Glasses >= _log.Goal * 2) return; // limite razoável
+        if (_log.Glasses >= _log.Goal * 2) return;
         DataService.Instance.Water.AddGlass(_log.Id);
         _log.Glasses++;
         Refresh();
