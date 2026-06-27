@@ -13,9 +13,20 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty]
     private string _greeting = GetGreeting();
 
+    [ObservableProperty]
+    private bool _isToday = true;
+
+    [ObservableProperty]
+    private bool _isProjects;
+
     public MainWindowViewModel()
     {
-        NavigationService.Instance.Navigated += page => CurrentPage = page;
+        NavigationService.Instance.Navigated += page =>
+        {
+            CurrentPage = page;
+            IsToday     = page == "Hoje";
+            IsProjects  = page == "Projetos";
+        };
     }
 
     [RelayCommand]
