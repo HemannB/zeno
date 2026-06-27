@@ -66,11 +66,20 @@
             <TextBlock Text="Projetos" FontSize="13" Foreground="{Binding ProjectsFg}"/>
           </Button>
 
+          <Separator Background="{DynamicResource ZenoBorderSubtle}" Margin="12,6"/>
+
           <Button Command="{Binding NavigateCommand}" CommandParameter="Pomodoro"
                   HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
                   BorderThickness="0" Padding="12,10" CornerRadius="8"
                   Background="{Binding PomodorooBg}">
             <TextBlock Text="Pomodoro" FontSize="13" Foreground="{Binding PomodoroFg}"/>
+          </Button>
+
+          <Button Command="{Binding NavigateCommand}" CommandParameter="Hidratação"
+                  HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                  BorderThickness="0" Padding="12,10" CornerRadius="8"
+                  Background="{Binding WaterBg}">
+            <TextBlock Text="Hidratação" FontSize="13" Foreground="{Binding WaterFg}"/>
           </Button>
 
         </StackPanel>
