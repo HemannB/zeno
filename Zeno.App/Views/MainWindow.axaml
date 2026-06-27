@@ -39,38 +39,42 @@
 
           <Button Command="{Binding NavigateCommand}" CommandParameter="Hoje"
                   HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
-                  Background="{DynamicResource ZenoAccentSubtle}"
-                  BorderThickness="0" Padding="12,10" CornerRadius="8">
-            <TextBlock Text="Hoje"
-                       Foreground="{DynamicResource ZenoAccentLight}"
-                       FontSize="13" FontWeight="Medium"/>
+                  BorderThickness="0" Padding="12,10" CornerRadius="8"
+                  Background="{Binding IsToday,
+                    Converter={x:Static BoolConverters.ToVisibility},
+                    ConverterParameter='{DynamicResource ZenoAccentSubtle}'}">
+            <TextBlock Text="Hoje" FontSize="13" FontWeight="Medium"
+                       Foreground="{Binding IsToday,
+                         Converter={x:Static BoolConverters.ToVisibility},
+                         ConverterParameter='{DynamicResource ZenoAccentLight}'}"/>
           </Button>
 
           <Button Command="{Binding NavigateCommand}" CommandParameter="Próximos"
                   HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
                   Background="Transparent" BorderThickness="0"
                   Padding="12,10" CornerRadius="8">
-            <TextBlock Text="Próximos"
-                       Foreground="{DynamicResource ZenoTextSecondary}"
-                       FontSize="13"/>
+            <TextBlock Text="Próximos" FontSize="13"
+                       Foreground="{DynamicResource ZenoTextSecondary}"/>
           </Button>
 
           <Button Command="{Binding NavigateCommand}" CommandParameter="Calendário"
                   HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
                   Background="Transparent" BorderThickness="0"
                   Padding="12,10" CornerRadius="8">
-            <TextBlock Text="Calendário"
-                       Foreground="{DynamicResource ZenoTextSecondary}"
-                       FontSize="13"/>
+            <TextBlock Text="Calendário" FontSize="13"
+                       Foreground="{DynamicResource ZenoTextSecondary}"/>
           </Button>
 
           <Button Command="{Binding NavigateCommand}" CommandParameter="Projetos"
                   HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
-                  Background="Transparent" BorderThickness="0"
-                  Padding="12,10" CornerRadius="8">
-            <TextBlock Text="Projetos"
-                       Foreground="{DynamicResource ZenoTextSecondary}"
-                       FontSize="13"/>
+                  BorderThickness="0" Padding="12,10" CornerRadius="8"
+                  Background="{Binding IsProjects,
+                    Converter={x:Static BoolConverters.ToVisibility},
+                    ConverterParameter='{DynamicResource ZenoAccentSubtle}'}">
+            <TextBlock Text="Projetos" FontSize="13" FontWeight="Medium"
+                       Foreground="{Binding IsProjects,
+                         Converter={x:Static BoolConverters.ToVisibility},
+                         ConverterParameter='{DynamicResource ZenoAccentLight}'}"/>
           </Button>
 
         </StackPanel>
@@ -82,9 +86,8 @@
                   HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
                   Background="Transparent" BorderThickness="0"
                   Padding="12,10" CornerRadius="8">
-            <TextBlock Text="Configurações"
-                       Foreground="{DynamicResource ZenoTextTertiary}"
-                       FontSize="13"/>
+            <TextBlock Text="Configurações" FontSize="13"
+                       Foreground="{DynamicResource ZenoTextTertiary}"/>
           </Button>
         </StackPanel>
 
@@ -112,8 +115,11 @@
         </StackPanel>
       </Border>
 
-      <!-- Page content -->
-      <views:TodayView/>
+      <!-- Pages -->
+      <Panel>
+        <views:TodayView    IsVisible="{Binding IsToday}"/>
+        <views:ProjectsView IsVisible="{Binding IsProjects}"/>
+      </Panel>
 
     </DockPanel>
 
