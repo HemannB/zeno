@@ -13,10 +13,12 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty] private string  _greeting    = GetGreeting();
     [ObservableProperty] private Control _currentView = new TodayView();
 
-    [ObservableProperty] private string _todayBg    = "#1E1E3A";
-    [ObservableProperty] private string _projectsBg = "Transparent";
-    [ObservableProperty] private string _todayFg    = "#818CF8";
-    [ObservableProperty] private string _projectsFg = "#9494A3";
+    [ObservableProperty] private string _todayBg     = "#1E1E3A";
+    [ObservableProperty] private string _projectsBg  = "Transparent";
+    [ObservableProperty] private string _pomodorooBg = "Transparent";
+    [ObservableProperty] private string _todayFg     = "#818CF8";
+    [ObservableProperty] private string _projectsFg  = "#9494A3";
+    [ObservableProperty] private string _pomodoroFg  = "#9494A3";
 
     public MainWindowViewModel()
     {
@@ -27,14 +29,17 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         CurrentPage = page;
 
-        TodayBg    = page == "Hoje"     ? "#1E1E3A"  : "Transparent";
-        ProjectsBg = page == "Projetos" ? "#1E1E3A"  : "Transparent";
-        TodayFg    = page == "Hoje"     ? "#818CF8"  : "#9494A3";
-        ProjectsFg = page == "Projetos" ? "#818CF8"  : "#9494A3";
+        TodayBg     = page == "Hoje"      ? "#1E1E3A" : "Transparent";
+        ProjectsBg  = page == "Projetos"  ? "#1E1E3A" : "Transparent";
+        PomodorooBg = page == "Pomodoro"  ? "#1E1E3A" : "Transparent";
+        TodayFg     = page == "Hoje"      ? "#818CF8" : "#9494A3";
+        ProjectsFg  = page == "Projetos"  ? "#818CF8" : "#9494A3";
+        PomodoroFg  = page == "Pomodoro"  ? "#818CF8" : "#9494A3";
 
         CurrentView = page switch
         {
             "Projetos" => new ProjectsView(),
+            "Pomodoro" => new PomodoroView(),
             _          => new TodayView()
         };
     }
