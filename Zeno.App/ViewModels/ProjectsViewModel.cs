@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -10,11 +9,11 @@ namespace Zeno.App.ViewModels;
 
 public partial class ProjectItemViewModel : ObservableObject
 {
-    public Project Project { get; }
-    public int    Id    => Project.Id;
-    public string Name  => Project.Name;
-    public string Color => Project.Color;
-    public int    Count { get; private set; }
+    public Project Project  { get; }
+    public int     Id       => Project.Id;
+    public string  Name     => Project.Name;
+    public string  Color    => Project.Color;
+    public int     Count    { get; private set; }
 
     public ProjectItemViewModel(Project project)
     {
@@ -28,14 +27,9 @@ public partial class ProjectsViewModel : ViewModelBase
     [ObservableProperty]
     private ObservableCollection<ProjectItemViewModel> _projects = [];
 
-    [ObservableProperty]
-    private string _newProjectName = string.Empty;
-
-    [ObservableProperty]
-    private string _selectedColor = "#6366F1";
-
-    [ObservableProperty]
-    private bool _isAdding;
+    [ObservableProperty] private string _newProjectName  = string.Empty;
+    [ObservableProperty] private string _selectedColor   = "#6366F1";
+    [ObservableProperty] private bool   _isAdding        = false;
 
     public List<string> AvailableColors { get; } =
     [
@@ -64,6 +58,9 @@ public partial class ProjectsViewModel : ViewModelBase
 
     [RelayCommand]
     private void CancelAdding() => IsAdding = false;
+
+    [RelayCommand]
+    private void SelectColor(string color) => SelectedColor = color;
 
     [RelayCommand]
     private void AddProject()
