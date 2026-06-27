@@ -1,0 +1,108 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Zeno.App.ViewModels"
+             x:Class="Zeno.App.Views.PomodoroView"
+             x:DataType="vm:PomodoroViewModel">
+
+  <DockPanel>
+
+    <!-- Header -->
+    <Border DockPanel.Dock="Top" Padding="28,24,28,0">
+      <StackPanel>
+        <TextBlock Text="Pomodoro"
+                   FontSize="20" FontWeight="SemiBold"
+                   Foreground="{DynamicResource ZenoTextPrimary}"/>
+        <TextBlock Text="Técnica de foco em ciclos de 25 minutos"
+                   FontSize="13"
+                   Foreground="{DynamicResource ZenoTextSecondary}"
+                   Margin="0,2,0,0"/>
+      </StackPanel>
+    </Border>
+
+    <!-- Contador de tomates -->
+    <Border DockPanel.Dock="Bottom" Padding="28,0,28,28">
+      <StackPanel HorizontalAlignment="Center" Spacing="8">
+        <TextBlock Text="Sessões hoje"
+                   FontSize="12"
+                   Foreground="{DynamicResource ZenoTextTertiary}"
+                   HorizontalAlignment="Center"/>
+        <TextBlock Text="{Binding PomodorosToday}"
+                   FontSize="28" FontWeight="SemiBold"
+                   Foreground="{DynamicResource ZenoTextPrimary}"
+                   HorizontalAlignment="Center"/>
+      </StackPanel>
+    </Border>
+
+    <!-- Timer central -->
+    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center"
+                Spacing="32">
+
+      <!-- Círculo do timer -->
+      <Canvas Width="260" Height="260" HorizontalAlignment="Center">
+
+        <!-- Trilha de fundo -->
+        <Ellipse Width="260" Height="260"
+                 Stroke="{DynamicResource ZenoBgTertiary}"
+                 StrokeThickness="12"
+                 Fill="Transparent"/>
+
+        <!-- Arco de progresso via Path -->
+        <Path x:Name="ProgressArc"
+              Stroke="{Binding StateColor}"
+              StrokeThickness="12"
+              StrokeLineCap="Round"
+              Fill="Transparent"
+              Canvas.Left="6" Canvas.Top="6"/>
+
+        <!-- Texto central -->
+        <StackPanel Canvas.Left="55" Canvas.Top="85" Width="150" Spacing="4">
+          <TextBlock Text="{Binding TimeLabel}"
+                     FontSize="42" FontWeight="Light"
+                     Foreground="{DynamicResource ZenoTextPrimary}"
+                     HorizontalAlignment="Center"/>
+          <TextBlock Text="{Binding StateLabel}"
+                     FontSize="13"
+                     Foreground="{DynamicResource ZenoTextSecondary}"
+                     HorizontalAlignment="Center"/>
+        </StackPanel>
+
+      </Canvas>
+
+      <!-- Botões de controle -->
+      <StackPanel Orientation="Horizontal" Spacing="12"
+                  HorizontalAlignment="Center">
+
+        <Button Command="{Binding ResetCommand}"
+                Background="{DynamicResource ZenoBgSecondary}"
+                BorderBrush="{DynamicResource ZenoBorderDefault}"
+                BorderThickness="1"
+                Foreground="{DynamicResource ZenoTextSecondary}"
+                CornerRadius="8" Padding="16,10"
+                FontSize="13">
+          Reiniciar
+        </Button>
+
+        <Button Command="{Binding ToggleTimerCommand}"
+                Background="{Binding StateColor}"
+                Foreground="White"
+                CornerRadius="8" Padding="28,10"
+                FontSize="14" FontWeight="Medium">
+          <TextBlock Text="{Binding ActionLabel}"/>
+        </Button>
+
+        <Button Command="{Binding SkipCommand}"
+                Background="{DynamicResource ZenoBgSecondary}"
+                BorderBrush="{DynamicResource ZenoBorderDefault}"
+                BorderThickness="1"
+                Foreground="{DynamicResource ZenoTextSecondary}"
+                CornerRadius="8" Padding="16,10"
+                FontSize="13">
+          Pular
+        </Button>
+
+      </StackPanel>
+
+    </StackPanel>
+
+  </DockPanel>
+</UserControl>
