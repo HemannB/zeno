@@ -34,8 +34,7 @@
                 HorizontalContentAlignment="Center"
                 Background="{DynamicResource ZenoAccent}"
                 Foreground="White"
-                CornerRadius="8"
-                Padding="0,10"
+                CornerRadius="8" Padding="0,10"
                 FontSize="13">
           Salvar alterações
         </Button>
@@ -46,8 +45,7 @@
                 BorderBrush="{DynamicResource ZenoDanger}"
                 BorderThickness="1"
                 Foreground="{DynamicResource ZenoDanger}"
-                CornerRadius="8"
-                Padding="0,10"
+                CornerRadius="8" Padding="0,10"
                 FontSize="13">
           Excluir tarefa
         </Button>
@@ -66,11 +64,24 @@
             <TextBox Text="{Binding Title}"
                      Background="{DynamicResource ZenoBgTertiary}"
                      BorderBrush="{DynamicResource ZenoBorderDefault}"
-                     BorderThickness="1"
-                     CornerRadius="8"
+                     BorderThickness="1" CornerRadius="8"
                      Foreground="{DynamicResource ZenoTextPrimary}"
-                     Padding="12,10"
-                     FontSize="14"/>
+                     Padding="12,10" FontSize="14"/>
+          </StackPanel>
+
+          <!-- Projeto -->
+          <StackPanel Spacing="6">
+            <TextBlock Text="PROJETO"
+                       FontSize="10" FontWeight="SemiBold"
+                       Foreground="{DynamicResource ZenoTextTertiary}"
+                       LetterSpacing="1"/>
+            <ComboBox ItemsSource="{Binding ProjectNames}"
+                      SelectedIndex="{Binding SelectedProjectIndex}"
+                      HorizontalAlignment="Stretch"
+                      Background="{DynamicResource ZenoBgTertiary}"
+                      BorderBrush="{DynamicResource ZenoBorderDefault}"
+                      Foreground="{DynamicResource ZenoTextPrimary}"
+                      Padding="12,10" CornerRadius="8"/>
           </StackPanel>
 
           <!-- Prioridade -->
@@ -85,8 +96,7 @@
                       Background="{DynamicResource ZenoBgTertiary}"
                       BorderBrush="{DynamicResource ZenoBorderDefault}"
                       Foreground="{DynamicResource ZenoTextPrimary}"
-                      Padding="12,10"
-                      CornerRadius="8"/>
+                      Padding="12,10" CornerRadius="8"/>
           </StackPanel>
 
           <!-- Data -->
@@ -99,11 +109,9 @@
                      PlaceholderText="aaaa-mm-dd"
                      Background="{DynamicResource ZenoBgTertiary}"
                      BorderBrush="{DynamicResource ZenoBorderDefault}"
-                     BorderThickness="1"
-                     CornerRadius="8"
+                     BorderThickness="1" CornerRadius="8"
                      Foreground="{DynamicResource ZenoTextPrimary}"
-                     Padding="12,10"
-                     FontSize="14"/>
+                     Padding="12,10" FontSize="14"/>
           </StackPanel>
 
           <!-- Notas -->
@@ -119,11 +127,9 @@
                      Height="120"
                      Background="{DynamicResource ZenoBgTertiary}"
                      BorderBrush="{DynamicResource ZenoBorderDefault}"
-                     BorderThickness="1"
-                     CornerRadius="8"
+                     BorderThickness="1" CornerRadius="8"
                      Foreground="{DynamicResource ZenoTextPrimary}"
-                     Padding="12,10"
-                     FontSize="14"
+                     Padding="12,10" FontSize="14"
                      VerticalContentAlignment="Top"/>
           </StackPanel>
 
