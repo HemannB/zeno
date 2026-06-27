@@ -1,7 +1,6 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:Zeno.App.ViewModels"
-        xmlns:views="using:Zeno.App.Views"
         x:Class="Zeno.App.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Title="Zeno"
@@ -40,13 +39,8 @@
           <Button Command="{Binding NavigateCommand}" CommandParameter="Hoje"
                   HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
                   BorderThickness="0" Padding="12,10" CornerRadius="8"
-                  Background="{Binding IsToday,
-                    Converter={x:Static BoolConverters.ToVisibility},
-                    ConverterParameter='{DynamicResource ZenoAccentSubtle}'}">
-            <TextBlock Text="Hoje" FontSize="13" FontWeight="Medium"
-                       Foreground="{Binding IsToday,
-                         Converter={x:Static BoolConverters.ToVisibility},
-                         ConverterParameter='{DynamicResource ZenoAccentLight}'}"/>
+                  Background="{Binding TodayBg}">
+            <TextBlock Text="Hoje" FontSize="13" Foreground="{Binding TodayFg}"/>
           </Button>
 
           <Button Command="{Binding NavigateCommand}" CommandParameter="Próximos"
@@ -68,13 +62,8 @@
           <Button Command="{Binding NavigateCommand}" CommandParameter="Projetos"
                   HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
                   BorderThickness="0" Padding="12,10" CornerRadius="8"
-                  Background="{Binding IsProjects,
-                    Converter={x:Static BoolConverters.ToVisibility},
-                    ConverterParameter='{DynamicResource ZenoAccentSubtle}'}">
-            <TextBlock Text="Projetos" FontSize="13" FontWeight="Medium"
-                       Foreground="{Binding IsProjects,
-                         Converter={x:Static BoolConverters.ToVisibility},
-                         ConverterParameter='{DynamicResource ZenoAccentLight}'}"/>
+                  Background="{Binding ProjectsBg}">
+            <TextBlock Text="Projetos" FontSize="13" Foreground="{Binding ProjectsFg}"/>
           </Button>
 
         </StackPanel>
@@ -115,11 +104,8 @@
         </StackPanel>
       </Border>
 
-      <!-- Pages -->
-      <Panel>
-        <views:TodayView    IsVisible="{Binding IsToday}"/>
-        <views:ProjectsView IsVisible="{Binding IsProjects}"/>
-      </Panel>
+      <!-- Page atual -->
+      <ContentControl Content="{Binding CurrentView}"/>
 
     </DockPanel>
 
