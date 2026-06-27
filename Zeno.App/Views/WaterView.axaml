@@ -1,0 +1,152 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Zeno.App.ViewModels"
+             x:Class="Zeno.App.Views.WaterView"
+             x:DataType="vm:WaterViewModel">
+
+  <DockPanel>
+
+    <!-- Header -->
+    <Border DockPanel.Dock="Top" Padding="28,24,28,0">
+      <StackPanel>
+        <TextBlock Text="Hidratação"
+                   FontSize="20" FontWeight="SemiBold"
+                   Foreground="{DynamicResource ZenoTextPrimary}"/>
+        <TextBlock Text="Acompanhe sua ingestão de água diária"
+                   FontSize="13"
+                   Foreground="{DynamicResource ZenoTextSecondary}"
+                   Margin="0,2,0,0"/>
+      </StackPanel>
+    </Border>
+
+    <!-- Status no rodapé -->
+    <Border DockPanel.Dock="Bottom" Padding="28,0,28,32">
+      <StackPanel Spacing="16">
+
+        <!-- Meta -->
+        <Border Background="{DynamicResource ZenoBgSecondary}"
+                BorderBrush="{DynamicResource ZenoBorderDefault}"
+                BorderThickness="1" CornerRadius="10"
+                Padding="16,12">
+          <Grid ColumnDefinitions="*,Auto">
+            <StackPanel Grid.Column="0">
+              <TextBlock Text="META DIÁRIA"
+                         FontSize="10" FontWeight="SemiBold"
+                         Foreground="{DynamicResource ZenoTextTertiary}"
+                         LetterSpacing="1"/>
+              <TextBlock FontSize="14"
+                         Foreground="{DynamicResource ZenoTextPrimary}"
+                         Margin="0,4,0,0">
+                <Run Text="{Binding Goal}"/>
+                <Run Text=" copos"/>
+              </TextBlock>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6">
+              <Button Command="{Binding SetGoalCommand}"
+                      CommandParameter="6"
+                      Background="{DynamicResource ZenoBgTertiary}"
+                      BorderThickness="0" CornerRadius="6"
+                      Foreground="{DynamicResource ZenoTextSecondary}"
+                      Padding="10,6" FontSize="12">
+                6
+              </Button>
+              <Button Command="{Binding SetGoalCommand}"
+                      CommandParameter="8"
+                      Background="{DynamicResource ZenoBgTertiary}"
+                      BorderThickness="0" CornerRadius="6"
+                      Foreground="{DynamicResource ZenoTextSecondary}"
+                      Padding="10,6" FontSize="12">
+                8
+              </Button>
+              <Button Command="{Binding SetGoalCommand}"
+                      CommandParameter="10"
+                      Background="{DynamicResource ZenoBgTertiary}"
+                      BorderThickness="0" CornerRadius="6"
+                      Foreground="{DynamicResource ZenoTextSecondary}"
+                      Padding="10,6" FontSize="12">
+                10
+              </Button>
+            </StackPanel>
+          </Grid>
+        </Border>
+
+        <!-- Botões + / - -->
+        <Grid ColumnDefinitions="*,Auto,*" ColumnSpacing="12">
+          <Button Grid.Column="0"
+                  Command="{Binding RemoveGlassCommand}"
+                  HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Center"
+                  Background="{DynamicResource ZenoBgSecondary}"
+                  BorderBrush="{DynamicResource ZenoBorderDefault}"
+                  BorderThickness="1"
+                  Foreground="{DynamicResource ZenoTextSecondary}"
+                  CornerRadius="10" Padding="0,14"
+                  FontSize="20">
+            −
+          </Button>
+          <StackPanel Grid.Column="1" HorizontalAlignment="Center"
+                      VerticalAlignment="Center" Spacing="2">
+            <TextBlock Text="{Binding Glasses}"
+                       FontSize="36" FontWeight="SemiBold"
+                       Foreground="{DynamicResource ZenoTextPrimary}"
+                       HorizontalAlignment="Center"/>
+            <TextBlock Text="copos"
+                       FontSize="12"
+                       Foreground="{DynamicResource ZenoTextTertiary}"
+                       HorizontalAlignment="Center"/>
+          </StackPanel>
+          <Button Grid.Column="2"
+                  Command="{Binding AddGlassCommand}"
+                  HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Center"
+                  Background="{DynamicResource ZenoInfo}"
+                  Foreground="White"
+                  CornerRadius="10" Padding="0,14"
+                  FontSize="20">
+            +
+          </Button>
+        </Grid>
+
+      </StackPanel>
+    </Border>
+
+    <!-- Gauge circular central -->
+    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="12">
+
+      <Canvas Width="240" Height="240" HorizontalAlignment="Center">
+
+        <!-- Trilha -->
+        <Ellipse Width="240" Height="240"
+                 Stroke="{DynamicResource ZenoBgTertiary}"
+                 StrokeThickness="16"
+                 Fill="Transparent"/>
+
+        <!-- Arco de progresso -->
+        <Path x:Name="WaterArc"
+              Stroke="{DynamicResource ZenoInfo}"
+              StrokeThickness="16"
+              StrokeLineCap="Round"
+              Fill="Transparent"
+              Canvas.Left="8" Canvas.Top="8"/>
+
+        <!-- Texto central -->
+        <StackPanel Canvas.Left="60" Canvas.Top="80" Width="120" Spacing="4">
+          <TextBlock Text="{Binding StatusLabel}"
+                     FontSize="14" FontWeight="Medium"
+                     Foreground="{DynamicResource ZenoTextPrimary}"
+                     HorizontalAlignment="Center"
+                     TextWrapping="Wrap"
+                     TextAlignment="Center"/>
+          <TextBlock FontSize="12"
+                     Foreground="{DynamicResource ZenoTextSecondary}"
+                     HorizontalAlignment="Center">
+            <Run Text="{Binding Progress, StringFormat={}{0:P0}}"/>
+          </TextBlock>
+        </StackPanel>
+
+      </Canvas>
+
+    </StackPanel>
+
+  </DockPanel>
+</UserControl>
