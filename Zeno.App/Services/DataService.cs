@@ -10,7 +10,6 @@ public class DataService
     private static DataService? _instance;
     public static DataService Instance => _instance ??= new DataService();
 
-    public readonly Database Database;
     public readonly TaskRepository Tasks;
     public readonly ProjectRepository Projects;
     public readonly WaterRepository Water;
@@ -24,11 +23,10 @@ public class DataService
 
         Directory.CreateDirectory(appDir);
 
-        var dbPath = Path.Combine(appDir, "zeno.db");
-        Database = new Database(dbPath);
-        Tasks    = new TaskRepository(Database);
-        Projects = new ProjectRepository(Database);
-        Water    = new WaterRepository(Database);
-        Pomodoro = new PomodoroRepository(Database);
+        var db       = new Database(Path.Combine(appDir, "zeno.db"));
+        Tasks        = new TaskRepository(db);
+        Projects     = new ProjectRepository(db);
+        Water        = new WaterRepository(db);
+        Pomodoro     = new PomodoroRepository(db);
     }
 }

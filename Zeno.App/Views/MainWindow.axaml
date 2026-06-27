@@ -36,6 +36,7 @@
 
         <!-- Nav -->
         <StackPanel DockPanel.Dock="Top" Margin="12,0" Spacing="2">
+
           <Button Command="{Binding NavigateCommand}" CommandParameter="Hoje"
                   HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
                   Background="{DynamicResource ZenoAccentSubtle}"
@@ -44,6 +45,7 @@
                        Foreground="{DynamicResource ZenoAccentLight}"
                        FontSize="13" FontWeight="Medium"/>
           </Button>
+
           <Button Command="{Binding NavigateCommand}" CommandParameter="Próximos"
                   HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
                   Background="Transparent" BorderThickness="0"
@@ -52,6 +54,7 @@
                        Foreground="{DynamicResource ZenoTextSecondary}"
                        FontSize="13"/>
           </Button>
+
           <Button Command="{Binding NavigateCommand}" CommandParameter="Calendário"
                   HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
                   Background="Transparent" BorderThickness="0"
@@ -60,6 +63,7 @@
                        Foreground="{DynamicResource ZenoTextSecondary}"
                        FontSize="13"/>
           </Button>
+
           <Button Command="{Binding NavigateCommand}" CommandParameter="Projetos"
                   HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
                   Background="Transparent" BorderThickness="0"
@@ -68,6 +72,7 @@
                        Foreground="{DynamicResource ZenoTextSecondary}"
                        FontSize="13"/>
           </Button>
+
         </StackPanel>
 
         <!-- Rodapé -->
