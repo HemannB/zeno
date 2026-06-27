@@ -1,31 +1,41 @@
 using System;
+using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Zeno.App.Services;
+using Zeno.App.Views;
 
 namespace Zeno.App.ViewModels;
 
 public partial class MainWindowViewModel : ViewModelBase
 {
-    [ObservableProperty]
-    private string _currentPage = "Hoje";
+    [ObservableProperty] private string  _currentPage = "Hoje";
+    [ObservableProperty] private string  _greeting    = GetGreeting();
+    [ObservableProperty] private Control _currentView = new TodayView();
 
-    [ObservableProperty]
-    private string _greeting = GetGreeting();
-
-    [ObservableProperty]
-    private bool _isToday = true;
-
-    [ObservableProperty]
-    private bool _isProjects;
+    [ObservableProperty] private string _todayBg    = "#1E1E3A";
+    [ObservableProperty] private string _projectsBg = "Transparent";
+    [ObservableProperty] private string _todayFg    = "#818CF8";
+    [ObservableProperty] private string _projectsFg = "#9494A3";
 
     public MainWindowViewModel()
     {
-        NavigationService.Instance.Navigated += page =>
+        NavigationService.Instance.Navigated += SetPage;
+    }
+
+    private void SetPage(string page)
+    {
+        CurrentPage = page;
+
+        TodayBg    = page == "Hoje"     ? "#1E1E3A"  : "Transparent";
+        ProjectsBg = page == "Projetos" ? "#1E1E3A"  : "Transparent";
+        TodayFg    = page == "Hoje"     ? "#818CF8"  : "#9494A3";
+        ProjectsFg = page == "Projetos" ? "#818CF8"  : "#9494A3";
+
+        CurrentView = page switch
         {
-            CurrentPage = page;
-            IsToday     = page == "Hoje";
-            IsProjects  = page == "Projetos";
+            "Projetos" => new ProjectsView(),
+            _          => new TodayView()
         };
     }
 
