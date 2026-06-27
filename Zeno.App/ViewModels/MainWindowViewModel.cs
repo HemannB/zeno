@@ -14,14 +14,14 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty] private string  _greeting     = GetGreeting();
     [ObservableProperty] private Control _currentView;
 
-    [ObservableProperty] private string _todayBg    = "#1E1E3A";
-    [ObservableProperty] private string _projectsBg = "Transparent";
+    [ObservableProperty] private string _todayBg     = "#1E1E3A";
+    [ObservableProperty] private string _projectsBg  = "Transparent";
     [ObservableProperty] private string _pomodorooBg = "Transparent";
-    [ObservableProperty] private string _waterBg    = "Transparent";
-    [ObservableProperty] private string _todayFg    = "#818CF8";
-    [ObservableProperty] private string _projectsFg = "#9494A3";
-    [ObservableProperty] private string _pomodoroFg = "#9494A3";
-    [ObservableProperty] private string _waterFg    = "#9494A3";
+    [ObservableProperty] private string _waterBg     = "Transparent";
+    [ObservableProperty] private string _todayFg     = "#818CF8";
+    [ObservableProperty] private string _projectsFg  = "#9494A3";
+    [ObservableProperty] private string _pomodoroFg  = "#9494A3";
+    [ObservableProperty] private string _waterFg     = "#9494A3";
 
     private readonly Dictionary<string, Control> _views = new();
 
@@ -33,7 +33,7 @@ public partial class MainWindowViewModel : ViewModelBase
 
     private void SetPage(string page)
     {
-        CurrentPage  = page;
+        CurrentPage = page;
 
         TodayBg     = page == "Hoje"       ? "#1E1E3A" : "Transparent";
         ProjectsBg  = page == "Projetos"   ? "#1E1E3A" : "Transparent";
@@ -44,8 +44,9 @@ public partial class MainWindowViewModel : ViewModelBase
         PomodoroFg  = page == "Pomodoro"   ? "#818CF8" : "#9494A3";
         WaterFg     = page == "Hidratação" ? "#818CF8" : "#9494A3";
 
-        // Projetos não são cacheados quando vêm de navegação interna
-        if (page == "Projetos") _views.Remove("Projetos");
+        // Projetos e Hidratação não são cacheados
+        if (page == "Projetos")   _views.Remove("Projetos");
+        if (page == "Hidratação") _views.Remove("Hidratação");
 
         CurrentView = GetOrCreate(page);
     }
