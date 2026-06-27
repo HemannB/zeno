@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -39,7 +40,6 @@ public partial class ProjectsViewModel : ViewModelBase
         "#14B8A6", "#64748B"
     ];
 
-    // Callback para o MainWindowViewModel abrir a view do projeto
     public Action<ProjectItemViewModel>? OnOpenProject { get; set; }
 
     public ProjectsViewModel() => Load();
