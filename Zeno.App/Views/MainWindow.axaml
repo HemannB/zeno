@@ -1,6 +1,7 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:Zeno.App.ViewModels"
+        xmlns:views="using:Zeno.App.Views"
         x:Class="Zeno.App.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Title="Zeno"
@@ -19,7 +20,8 @@
       <DockPanel>
 
         <!-- Logo -->
-        <StackPanel DockPanel.Dock="Top" Margin="20,28,20,24" Orientation="Horizontal" Spacing="10">
+        <StackPanel DockPanel.Dock="Top" Margin="20,28,20,24"
+                    Orientation="Horizontal" Spacing="10">
           <Border Width="28" Height="28" CornerRadius="8"
                   Background="{DynamicResource ZenoAccent}">
             <TextBlock Text="Z" FontSize="15" FontWeight="Bold"
@@ -32,54 +34,59 @@
                      VerticalAlignment="Center"/>
         </StackPanel>
 
-        <!-- Nav items -->
+        <!-- Nav -->
         <StackPanel DockPanel.Dock="Top" Margin="12,0" Spacing="2">
-
           <Button Command="{Binding NavigateCommand}" CommandParameter="Hoje"
                   HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
-                  Background="Transparent" BorderThickness="0"
-                  Padding="12,10" CornerRadius="8">
-            <TextBlock Text="Hoje" Foreground="{DynamicResource ZenoTextPrimary}" FontSize="13"/>
+                  Background="{DynamicResource ZenoAccentSubtle}"
+                  BorderThickness="0" Padding="12,10" CornerRadius="8">
+            <TextBlock Text="Hoje"
+                       Foreground="{DynamicResource ZenoAccentLight}"
+                       FontSize="13" FontWeight="Medium"/>
           </Button>
-
           <Button Command="{Binding NavigateCommand}" CommandParameter="Próximos"
                   HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
                   Background="Transparent" BorderThickness="0"
                   Padding="12,10" CornerRadius="8">
-            <TextBlock Text="Próximos" Foreground="{DynamicResource ZenoTextSecondary}" FontSize="13"/>
+            <TextBlock Text="Próximos"
+                       Foreground="{DynamicResource ZenoTextSecondary}"
+                       FontSize="13"/>
           </Button>
-
           <Button Command="{Binding NavigateCommand}" CommandParameter="Calendário"
                   HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
                   Background="Transparent" BorderThickness="0"
                   Padding="12,10" CornerRadius="8">
-            <TextBlock Text="Calendário" Foreground="{DynamicResource ZenoTextSecondary}" FontSize="13"/>
+            <TextBlock Text="Calendário"
+                       Foreground="{DynamicResource ZenoTextSecondary}"
+                       FontSize="13"/>
           </Button>
-
           <Button Command="{Binding NavigateCommand}" CommandParameter="Projetos"
                   HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
                   Background="Transparent" BorderThickness="0"
                   Padding="12,10" CornerRadius="8">
-            <TextBlock Text="Projetos" Foreground="{DynamicResource ZenoTextSecondary}" FontSize="13"/>
+            <TextBlock Text="Projetos"
+                       Foreground="{DynamicResource ZenoTextSecondary}"
+                       FontSize="13"/>
           </Button>
-
         </StackPanel>
 
-        <!-- Configurações no rodapé -->
+        <!-- Rodapé -->
         <StackPanel DockPanel.Dock="Bottom" Margin="12,0,12,20" Spacing="2">
           <Separator Background="{DynamicResource ZenoBorderSubtle}" Margin="0,0,0,8"/>
           <Button Command="{Binding NavigateCommand}" CommandParameter="Configurações"
                   HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
                   Background="Transparent" BorderThickness="0"
                   Padding="12,10" CornerRadius="8">
-            <TextBlock Text="Configurações" Foreground="{DynamicResource ZenoTextTertiary}" FontSize="13"/>
+            <TextBlock Text="Configurações"
+                       Foreground="{DynamicResource ZenoTextTertiary}"
+                       FontSize="13"/>
           </Button>
         </StackPanel>
 
       </DockPanel>
     </Border>
 
-    <!-- Content area -->
+    <!-- Content -->
     <DockPanel Grid.Column="1">
 
       <!-- Top bar -->
@@ -93,22 +100,15 @@
                      Foreground="{DynamicResource ZenoTextPrimary}">
             <Run Text="{Binding Greeting}"/><Run Text=", Bruno! 👋"/>
           </TextBlock>
-          <TextBlock FontSize="13" Foreground="{DynamicResource ZenoTextSecondary}" Margin="0,2,0,0"
+          <TextBlock FontSize="13"
+                     Foreground="{DynamicResource ZenoTextSecondary}"
+                     Margin="0,2,0,0"
                      Text="{Binding CurrentPage}"/>
         </StackPanel>
       </Border>
 
-      <!-- Page placeholder -->
-      <Border Background="{DynamicResource ZenoBgPrimary}" Padding="28">
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="8">
-          <TextBlock Text="ZENO" FontSize="64" FontWeight="Light"
-                     Foreground="{DynamicResource ZenoAccent}"
-                     HorizontalAlignment="Center" Opacity="0.08"/>
-          <TextBlock Text="Foco sem ruído." FontSize="14"
-                     Foreground="{DynamicResource ZenoTextTertiary}"
-                     HorizontalAlignment="Center"/>
-        </StackPanel>
-      </Border>
+      <!-- Page content -->
+      <views:TodayView/>
 
     </DockPanel>
 
