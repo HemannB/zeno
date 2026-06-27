@@ -1,9 +1,9 @@
 CREATE TABLE IF NOT EXISTS Projects (
-    Id        INTEGER PRIMARY KEY AUTOINCREMENT,
-    Name      TEXT    NOT NULL,
-    Color     TEXT    NOT NULL DEFAULT '#6366F1',
+    Id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    Name       TEXT    NOT NULL,
+    Color      TEXT    NOT NULL DEFAULT '#6366F1',
     IsArchived INTEGER NOT NULL DEFAULT 0,
-    CreatedAt TEXT    NOT NULL DEFAULT (datetime('now'))
+    CreatedAt  TEXT    NOT NULL DEFAULT (datetime('now'))
 );
 
 CREATE TABLE IF NOT EXISTS Tasks (
@@ -22,10 +22,10 @@ CREATE TABLE IF NOT EXISTS Tasks (
 );
 
 CREATE TABLE IF NOT EXISTS PomodoroSessions (
-    Id          INTEGER PRIMARY KEY AUTOINCREMENT,
-    TaskId      INTEGER REFERENCES Tasks(Id) ON DELETE SET NULL,
-    StartedAt   TEXT    NOT NULL DEFAULT (datetime('now')),
-    CompletedAt TEXT,
+    Id           INTEGER PRIMARY KEY AUTOINCREMENT,
+    TaskId       INTEGER REFERENCES Tasks(Id) ON DELETE SET NULL,
+    StartedAt    TEXT    NOT NULL DEFAULT (datetime('now')),
+    CompletedAt  TEXT,
     WasCompleted INTEGER NOT NULL DEFAULT 0
 );
 
