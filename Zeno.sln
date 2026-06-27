@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zeno.App", "Zeno.App\Zeno.A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zeno.Data", "Zeno.Data\Zeno.Data.csproj", "{C2335BAD-0BDE-430D-BA22-1C4604FFB1CA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zeno.Tests", "Zeno.Tests\Zeno.Tests.csproj", "{7E208965-659E-43CC-A632-463E10558003}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{C2335BAD-0BDE-430D-BA22-1C4604FFB1CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2335BAD-0BDE-430D-BA22-1C4604FFB1CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2335BAD-0BDE-430D-BA22-1C4604FFB1CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E208965-659E-43CC-A632-463E10558003}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E208965-659E-43CC-A632-463E10558003}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E208965-659E-43CC-A632-463E10558003}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E208965-659E-43CC-A632-463E10558003}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
