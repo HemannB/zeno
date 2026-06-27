@@ -19,7 +19,7 @@
       </StackPanel>
     </Border>
 
-    <!-- Contador de tomates -->
+    <!-- Contador de sessões -->
     <Border DockPanel.Dock="Bottom" Padding="28,0,28,28">
       <StackPanel HorizontalAlignment="Center" Spacing="8">
         <TextBlock Text="Sessões hoje"
@@ -34,25 +34,26 @@
     </Border>
 
     <!-- Timer central -->
-    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center"
-                Spacing="32">
+    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="32">
 
-      <!-- Círculo do timer -->
       <Canvas Width="260" Height="260" HorizontalAlignment="Center">
 
-        <!-- Trilha de fundo -->
+        <!-- Trilha -->
         <Ellipse Width="260" Height="260"
                  Stroke="{DynamicResource ZenoBgTertiary}"
                  StrokeThickness="12"
                  Fill="Transparent"/>
 
-        <!-- Arco de progresso via Path -->
+        <!-- Arco — SolidColorBrush explícito para garantir renderização -->
         <Path x:Name="ProgressArc"
-              Stroke="{Binding StateColor}"
               StrokeThickness="12"
               StrokeLineCap="Round"
               Fill="Transparent"
-              Canvas.Left="6" Canvas.Top="6"/>
+              Canvas.Left="6" Canvas.Top="6">
+          <Path.Stroke>
+            <SolidColorBrush Color="#6366F1"/>
+          </Path.Stroke>
+        </Path>
 
         <!-- Texto central -->
         <StackPanel Canvas.Left="55" Canvas.Top="85" Width="150" Spacing="4">
@@ -68,17 +69,15 @@
 
       </Canvas>
 
-      <!-- Botões de controle -->
-      <StackPanel Orientation="Horizontal" Spacing="12"
-                  HorizontalAlignment="Center">
+      <!-- Botões -->
+      <StackPanel Orientation="Horizontal" Spacing="12" HorizontalAlignment="Center">
 
         <Button Command="{Binding ResetCommand}"
                 Background="{DynamicResource ZenoBgSecondary}"
                 BorderBrush="{DynamicResource ZenoBorderDefault}"
                 BorderThickness="1"
                 Foreground="{DynamicResource ZenoTextSecondary}"
-                CornerRadius="8" Padding="16,10"
-                FontSize="13">
+                CornerRadius="8" Padding="16,10" FontSize="13">
           Reiniciar
         </Button>
 
@@ -95,8 +94,7 @@
                 BorderBrush="{DynamicResource ZenoBorderDefault}"
                 BorderThickness="1"
                 Foreground="{DynamicResource ZenoTextSecondary}"
-                CornerRadius="8" Padding="16,10"
-                FontSize="13">
+                CornerRadius="8" Padding="16,10" FontSize="13">
           Pular
         </Button>
 
