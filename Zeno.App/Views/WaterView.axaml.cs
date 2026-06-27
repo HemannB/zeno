@@ -11,8 +11,8 @@ namespace Zeno.App.Views;
 public partial class WaterView : UserControl
 {
     private WaterViewModel? _vm;
-    private Path?           _arc;
-    private DispatcherTimer? _arcTimer;
+    private Path?              _arc;
+    private DispatcherTimer?   _arcTimer;
 
     public WaterView()
     {
@@ -42,9 +42,9 @@ public partial class WaterView : UserControl
         if (_arc is null || _vm is null) return;
 
         var progress = _vm.Progress;
-        const double radius = 112;
-        const double cx     = 112;
-        const double cy     = 112;
+        const double radius = 124;
+        const double cx     = 124;
+        const double cy     = 124;
 
         if (progress <= 0.001)
         {
