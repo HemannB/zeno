@@ -108,7 +108,7 @@
       </StackPanel>
     </Border>
 
-    <!-- Gauge idêntico ao Pomodoro -->
+    <!-- Gauge — SolidColorBrush explícito no Stroke -->
     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="32">
       <Canvas Width="260" Height="260" HorizontalAlignment="Center">
 
@@ -118,11 +118,14 @@
                  Fill="Transparent"/>
 
         <Path x:Name="WaterArc"
-              Stroke="{DynamicResource ZenoInfo}"
               StrokeThickness="12"
               StrokeLineCap="Round"
               Fill="Transparent"
-              Canvas.Left="6" Canvas.Top="6"/>
+              Canvas.Left="6" Canvas.Top="6">
+          <Path.Stroke>
+            <SolidColorBrush Color="#0EA5E9"/>
+          </Path.Stroke>
+        </Path>
 
         <StackPanel Canvas.Left="55" Canvas.Top="95" Width="150" Spacing="4">
           <TextBlock Text="{Binding StatusLabel}"
