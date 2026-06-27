@@ -1,0 +1,22 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <!-- Primitives -->
+  <Color x:Key="Gray900">#0E0E10</Color>
+  <Color x:Key="Gray800">#17171A</Color>
+  <Color x:Key="Gray700">#1E1E23</Color>
+  <Color x:Key="Gray600">#2A2A31</Color>
+  <Color x:Key="Gray400">#6B6B7A</Color>
+  <Color x:Key="Gray300">#9494A3</Color>
+  <Color x:Key="Gray100">#E8E8F0</Color>
+
+  <Color x:Key="Indigo500">#6366F1</Color>
+  <Color x:Key="Indigo400">#818CF8</Color>
+
+  <Color x:Key="Emerald500">#10B981</Color>
+  <Color x:Key="Amber500">#F59E0B</Color>
+  <Color x:Key="Rose500">#F43F5E</Color>
+  <Color x:Key="Sky500">#0EA5E9</Color>
+  <Color x:Key="Violet500">#8B5CF6</Color>
+
+</ResourceDictionary>

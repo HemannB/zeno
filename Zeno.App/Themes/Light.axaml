@@ -1,0 +1,43 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <!-- Backgrounds -->
+  <SolidColorBrush x:Key="ZenoBgPrimary"    Color="#FFFFFF"/>
+  <SolidColorBrush x:Key="ZenoBgSecondary"  Color="#F5F5FA"/>
+  <SolidColorBrush x:Key="ZenoBgTertiary"   Color="#EBEBF5"/>
+  <SolidColorBrush x:Key="ZenoBgHover"      Color="#E4E4EF"/>
+  <SolidColorBrush x:Key="ZenoBgSidebar"    Color="#F0F0F8"/>
+
+  <!-- Borders -->
+  <SolidColorBrush x:Key="ZenoBorderSubtle"  Color="#EBEBF5"/>
+  <SolidColorBrush x:Key="ZenoBorderDefault" Color="#D8D8E8"/>
+
+  <!-- Text -->
+  <SolidColorBrush x:Key="ZenoTextPrimary"   Color="#0E0E10"/>
+  <SolidColorBrush x:Key="ZenoTextSecondary" Color="#4A4A5A"/>
+  <SolidColorBrush x:Key="ZenoTextTertiary"  Color="#8888A0"/>
+
+  <!-- Accent -->
+  <SolidColorBrush x:Key="ZenoAccent"       Color="#6366F1"/>
+  <SolidColorBrush x:Key="ZenoAccentLight"  Color="#4F52D9"/>
+  <SolidColorBrush x:Key="ZenoAccentSubtle" Color="#EEF2FF"/>
+
+  <!-- Semantic -->
+  <SolidColorBrush x:Key="ZenoSuccess" Color="#059669"/>
+  <SolidColorBrush x:Key="ZenoWarning" Color="#D97706"/>
+  <SolidColorBrush x:Key="ZenoDanger"  Color="#E11D48"/>
+
+  <!-- Priority -->
+  <SolidColorBrush x:Key="PriorityHigh"   Color="#E11D48"/>
+  <SolidColorBrush x:Key="PriorityMedium" Color="#D97706"/>
+  <SolidColorBrush x:Key="PriorityLow"    Color="#059669"/>
+
+  <!-- Projects -->
+  <SolidColorBrush x:Key="ProjectIndigo"  Color="#6366F1"/>
+  <SolidColorBrush x:Key="ProjectViolet"  Color="#8B5CF6"/>
+  <SolidColorBrush x:Key="ProjectSky"     Color="#0EA5E9"/>
+  <SolidColorBrush x:Key="ProjectEmerald" Color="#10B981"/>
+  <SolidColorBrush x:Key="ProjectAmber"   Color="#F59E0B"/>
+  <SolidColorBrush x:Key="ProjectRose"    Color="#F43F5E"/>
+
+</ResourceDictionary>
