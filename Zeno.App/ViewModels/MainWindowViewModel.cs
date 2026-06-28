@@ -19,11 +19,13 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty] private string _projectsBg  = "Transparent";
     [ObservableProperty] private string _pomodorooBg = "Transparent";
     [ObservableProperty] private string _waterBg     = "Transparent";
+    [ObservableProperty] private string _statsBg     = "Transparent";
     [ObservableProperty] private string _todayFg     = "#818CF8";
     [ObservableProperty] private string _upcomingFg  = "#9494A3";
     [ObservableProperty] private string _projectsFg  = "#9494A3";
     [ObservableProperty] private string _pomodoroFg  = "#9494A3";
     [ObservableProperty] private string _waterFg     = "#9494A3";
+    [ObservableProperty] private string _statsFg     = "#9494A3";
 
     private readonly Dictionary<string, Control> _views = new();
 
@@ -37,21 +39,24 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         CurrentPage = page;
 
-        TodayBg     = page == "Hoje"       ? "#1E1E3A" : "Transparent";
-        UpcomingBg  = page == "Próximos"   ? "#1E1E3A" : "Transparent";
-        ProjectsBg  = page == "Projetos"   ? "#1E1E3A" : "Transparent";
-        PomodorooBg = page == "Pomodoro"   ? "#1E1E3A" : "Transparent";
-        WaterBg     = page == "Hidratação" ? "#1E1E3A" : "Transparent";
-        TodayFg     = page == "Hoje"       ? "#818CF8" : "#9494A3";
-        UpcomingFg  = page == "Próximos"   ? "#818CF8" : "#9494A3";
-        ProjectsFg  = page == "Projetos"   ? "#818CF8" : "#9494A3";
-        PomodoroFg  = page == "Pomodoro"   ? "#818CF8" : "#9494A3";
-        WaterFg     = page == "Hidratação" ? "#818CF8" : "#9494A3";
+        TodayBg     = page == "Hoje"          ? "#1E1E3A" : "Transparent";
+        UpcomingBg  = page == "Próximos"      ? "#1E1E3A" : "Transparent";
+        ProjectsBg  = page == "Projetos"      ? "#1E1E3A" : "Transparent";
+        PomodorooBg = page == "Pomodoro"      ? "#1E1E3A" : "Transparent";
+        WaterBg     = page == "Hidratação"    ? "#1E1E3A" : "Transparent";
+        StatsBg     = page == "Estatísticas"  ? "#1E1E3A" : "Transparent";
+        TodayFg     = page == "Hoje"          ? "#818CF8" : "#9494A3";
+        UpcomingFg  = page == "Próximos"      ? "#818CF8" : "#9494A3";
+        ProjectsFg  = page == "Projetos"      ? "#818CF8" : "#9494A3";
+        PomodoroFg  = page == "Pomodoro"      ? "#818CF8" : "#9494A3";
+        WaterFg     = page == "Hidratação"    ? "#818CF8" : "#9494A3";
+        StatsFg     = page == "Estatísticas"  ? "#818CF8" : "#9494A3";
 
-        if (page == "Hoje")       _views.Remove("Hoje");
-        if (page == "Próximos")   _views.Remove("Próximos");
-        if (page == "Projetos")   _views.Remove("Projetos");
-        if (page == "Hidratação") _views.Remove("Hidratação");
+        if (page == "Hoje")         _views.Remove("Hoje");
+        if (page == "Próximos")     _views.Remove("Próximos");
+        if (page == "Projetos")     _views.Remove("Projetos");
+        if (page == "Hidratação")   _views.Remove("Hidratação");
+        if (page == "Estatísticas") _views.Remove("Estatísticas");
 
         CurrentView = GetOrCreate(page);
     }
@@ -63,11 +68,12 @@ public partial class MainWindowViewModel : ViewModelBase
 
         Control view = page switch
         {
-            "Próximos"   => new UpcomingView(),
-            "Projetos"   => CreateProjectsView(),
-            "Pomodoro"   => new PomodoroView(),
-            "Hidratação" => new WaterView(),
-            _            => new TodayView()
+            "Próximos"     => new UpcomingView(),
+            "Projetos"     => CreateProjectsView(),
+            "Pomodoro"     => new PomodoroView(),
+            "Hidratação"   => new WaterView(),
+            "Estatísticas" => new StatsView(),
+            _              => new TodayView()
         };
 
         _views[page] = view;
