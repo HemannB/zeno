@@ -23,6 +23,15 @@ public partial class WaterViewModel : ViewModelBase
     {
         _log  = DataService.Instance.Water.GetToday();
         Quote = QuoteService.GetWaterQuote();
+
+        // Sincroniza meta do SettingsService com o banco
+        var settingsGoal = SettingsService.Instance.Current.DailyWaterGoal;
+        if (_log.Goal != settingsGoal)
+        {
+            DataService.Instance.Water.SetGoal(_log.Id, settingsGoal);
+            _log.Goal = settingsGoal;
+        }
+
         Refresh();
 
         _resetTimer       = new DispatcherTimer { Interval = TimeSpan.FromMinutes(1) };
@@ -48,6 +57,15 @@ public partial class WaterViewModel : ViewModelBase
         {
             _log  = today;
             Quote = QuoteService.GetWaterQuote();
+
+            // Aplica meta do settings no novo dia
+            var settingsGoal = SettingsService.Instance.Current.DailyWaterGoal;
+            if (_log.Goal != settingsGoal)
+            {
+                DataService.Instance.Water.SetGoal(_log.Id, settingsGoal);
+                _log.Goal = settingsGoal;
+            }
+
             Refresh();
         }
     }
@@ -67,15 +85,6 @@ public partial class WaterViewModel : ViewModelBase
         if (_log.Glasses <= 0) return;
         DataService.Instance.Water.RemoveGlass(_log.Id);
         _log.Glasses--;
-        Refresh();
-    }
-
-    [RelayCommand]
-    private void SetGoal(string value)
-    {
-        if (!int.TryParse(value, out var goal) || goal < 1) return;
-        DataService.Instance.Water.SetGoal(_log.Id, goal);
-        _log.Goal = goal;
         Refresh();
     }
 }
