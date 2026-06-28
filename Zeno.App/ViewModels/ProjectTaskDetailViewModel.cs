@@ -8,13 +8,15 @@ using Zeno.Data.Models;
 
 namespace Zeno.App.ViewModels;
 
+// Reutiliza a mesma interface do TaskDetailViewModel
+// mas com callbacks para o ProjectTasksViewModel
 public partial class ProjectTaskDetailViewModel : ObservableObject
 {
     private readonly TaskItemViewModel     _item;
     private readonly ProjectTasksViewModel _parent;
 
-    [ObservableProperty] private string  _title              = string.Empty;
-    [ObservableProperty] private string  _notes              = string.Empty;
+    [ObservableProperty] private string  _title               = string.Empty;
+    [ObservableProperty] private string  _notes               = string.Empty;
     [ObservableProperty] private int     _priorityIndex;
     [ObservableProperty] private string? _dueDate;
     [ObservableProperty] private int     _selectedProjectIndex = 0;
