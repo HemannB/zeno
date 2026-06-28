@@ -44,7 +44,8 @@ public partial class MainWindowViewModel : ViewModelBase
         PomodoroFg  = page == "Pomodoro"   ? "#818CF8" : "#9494A3";
         WaterFg     = page == "Hidratação" ? "#818CF8" : "#9494A3";
 
-        // Projetos e Hidratação não são cacheados
+        // Hoje, Projetos e Hidratação sempre recriam para refletir dados atuais
+        if (page == "Hoje")       _views.Remove("Hoje");
         if (page == "Projetos")   _views.Remove("Projetos");
         if (page == "Hidratação") _views.Remove("Hidratação");
 
