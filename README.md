@@ -37,7 +37,7 @@ Crie projetos com nome e cor customizável. Associe tarefas a projetos e acompan
 Timer circular animado com ciclos de 25 minutos de foco, 5 minutos de pausa curta e 15 minutos de pausa longa. Muda de cor conforme o estado e persiste ao navegar entre páginas.
 
 ### Hidratação
-Gauge circular animado para acompanhar a ingestão de água diária. Meta configurável (6, 8 ou 10 copos) com frase estoica motivacional que muda a cada sessão.
+Gauge circular animado para acompanhar a ingestão de água diária. Meta configurável (6, 8 ou 10 copos) com frases que mudam a cada sessão.
 
 ### Estatísticas *(em desenvolvimento)*
 Dashboard com progresso semanal, streak de dias consecutivos, gráfico de barras dos últimos 7 dias e contador de sessões Pomodoro.
