@@ -16,8 +16,8 @@ public partial class ProjectTasksViewModel : ViewModelBase
     [ObservableProperty] private string _projectColor = "#6366F1";
     [ObservableProperty] private ObservableCollection<TaskItemViewModel> _tasks = [];
     [ObservableProperty] private int    _pendingCount;
-    [ObservableProperty] private string _newTaskTitle  = string.Empty;
-    [ObservableProperty] private TaskDetailViewModel? _selectedTask;
+    [ObservableProperty] private string _newTaskTitle = string.Empty;
+    [ObservableProperty] private ProjectTaskDetailViewModel? _selectedTask;
     [ObservableProperty] private bool   _isDetailOpen;
 
     public ProjectTasksViewModel(ProjectItemViewModel project)
@@ -35,7 +35,7 @@ public partial class ProjectTasksViewModel : ViewModelBase
             .Select(t => new TaskItemViewModel(t));
 
         Tasks        = new ObservableCollection<TaskItemViewModel>(tasks);
-        PendingCount = Tasks.Count(t => !t.IsCompleted);
+        UpdateCounters();
     }
 
     private void UpdateCounters() =>
@@ -75,7 +75,8 @@ public partial class ProjectTasksViewModel : ViewModelBase
         UpdateCounters();
     }
 
-    public void SelectTask(TaskItemViewModel item)
+    [RelayCommand]
+    private void SelectTask(TaskItemViewModel item)
     {
         foreach (var t in Tasks)
             t.IsSelected = false;
