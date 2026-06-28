@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
@@ -29,53 +30,42 @@ public partial class StatsViewModel : ViewModelBase
     [ObservableProperty] private double _weeklyProgress;
     [ObservableProperty] private int    _streak;
     [ObservableProperty] private int    _pomodorosToday;
+    [ObservableProperty] private int    _waterGlasses;
+    [ObservableProperty] private int    _waterGoal;
+    [ObservableProperty] private double _waterProgress;
     [ObservableProperty] private string _weekLabel      = string.Empty;
     [ObservableProperty] private ObservableCollection<DayStatViewModel> _daySats = [];
 
-    public StatsViewModel()
-    {
-        Load();
-    }
+    public StatsViewModel() => Load();
 
     private void Load()
     {
         var today = DateTime.Today;
 
-        // Semana atual (seg a dom)
         var startOfWeek = today.AddDays(-(int)today.DayOfWeek + (int)DayOfWeek.Monday);
         if (today.DayOfWeek == DayOfWeek.Sunday)
             startOfWeek = today.AddDays(-6);
 
         WeekLabel = $"{startOfWeek:d MMM} – {startOfWeek.AddDays(6):d MMM}";
 
-        // Tarefas completadas hoje
-        CompletedToday = DataService.Instance.Tasks
-            .GetCompleted(today).Count();
+        CompletedToday  = DataService.Instance.Tasks.GetCompleted(today).Count();
+        CompletedWeek   = DataService.Instance.Tasks.CountCompletedThisWeek();
+        WeeklyProgress  = WeeklyGoal > 0
+            ? Math.Min(1.0, (double)CompletedWeek / WeeklyGoal) : 0;
+        PomodorosToday  = DataService.Instance.Pomodoro.CountToday();
+        Streak          = CalculateStreak();
 
-        // Tarefas completadas na semana
-        CompletedWeek = DataService.Instance.Tasks.CountCompletedThisWeek();
-
-        // Progresso semanal
-        WeeklyProgress = WeeklyGoal > 0
-            ? Math.Min(1.0, (double)CompletedWeek / WeeklyGoal)
-            : 0;
-
-        // Pomodoros hoje
-        PomodorosToday = DataService.Instance.Pomodoro.CountToday();
-
-        // Streak — dias consecutivos com pelo menos 1 tarefa concluída
-        Streak = CalculateStreak();
+        // Água
+        var water    = DataService.Instance.Water.GetToday();
+        WaterGlasses = water.Glasses;
+        WaterGoal    = water.Goal;
+        WaterProgress = WaterGoal > 0
+            ? Math.Min(1.0, (double)WaterGlasses / WaterGoal) : 0;
 
         // Barras dos últimos 7 dias
-        var days = Enumerable.Range(0, 7)
-            .Select(i => today.AddDays(-6 + i))
-            .ToList();
-
-        var counts = days
-            .Select(d => DataService.Instance.Tasks.GetCompleted(d).Count())
-            .ToList();
-
-        var max = counts.Max() > 0 ? counts.Max() : 1;
+        var days   = Enumerable.Range(0, 7).Select(i => today.AddDays(-6 + i)).ToList();
+        var counts = days.Select(d => DataService.Instance.Tasks.GetCompleted(d).Count()).ToList();
+        var max    = counts.Max() > 0 ? counts.Max() : 1;
 
         DaySats = new ObservableCollection<DayStatViewModel>(
             days.Zip(counts, (d, c) => new DayStatViewModel(
