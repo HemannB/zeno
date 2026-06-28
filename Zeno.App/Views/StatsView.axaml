@@ -72,9 +72,7 @@
               <TextBlock Text="{Binding Streak}"
                          FontSize="28" FontWeight="SemiBold"
                          Foreground="{DynamicResource ZenoWarning}"/>
-              <TextBlock Text="🔥"
-                         FontSize="20"
-                         VerticalAlignment="Center"/>
+              <TextBlock Text="🔥" FontSize="20" VerticalAlignment="Center"/>
             </StackPanel>
             <TextBlock Text="dias consecutivos"
                        FontSize="11"
@@ -96,9 +94,7 @@
               <TextBlock Text="{Binding PomodorosToday}"
                          FontSize="28" FontWeight="SemiBold"
                          Foreground="{DynamicResource ZenoDanger}"/>
-              <TextBlock Text="🍅"
-                         FontSize="20"
-                         VerticalAlignment="Center"/>
+              <TextBlock Text="🍅" FontSize="20" VerticalAlignment="Center"/>
             </StackPanel>
             <TextBlock Text="sessões hoje"
                        FontSize="11"
@@ -108,46 +104,88 @@
 
       </Grid>
 
-      <!-- Meta semanal -->
-      <Border Background="{DynamicResource ZenoBgSecondary}"
-              BorderBrush="{DynamicResource ZenoBorderSubtle}"
-              BorderThickness="1" CornerRadius="10"
-              Padding="20,16">
-        <StackPanel Spacing="12">
-          <Grid ColumnDefinitions="*,Auto">
-            <StackPanel Grid.Column="0">
-              <TextBlock Text="META SEMANAL"
-                         FontSize="10" FontWeight="SemiBold"
-                         Foreground="{DynamicResource ZenoTextTertiary}"
-                         LetterSpacing="1"/>
-              <TextBlock FontSize="14"
-                         Foreground="{DynamicResource ZenoTextPrimary}"
-                         Margin="0,4,0,0">
-                <Run Text="{Binding CompletedWeek}"/>
-                <Run Text=" de "/>
-                <Run Text="{Binding WeeklyGoal}"/>
-                <Run Text=" tarefas"/>
+      <!-- Meta semanal + Água lado a lado -->
+      <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+
+        <!-- Meta semanal -->
+        <Border Grid.Column="0"
+                Background="{DynamicResource ZenoBgSecondary}"
+                BorderBrush="{DynamicResource ZenoBorderSubtle}"
+                BorderThickness="1" CornerRadius="10"
+                Padding="20,16">
+          <StackPanel Spacing="12">
+            <Grid ColumnDefinitions="*,Auto">
+              <StackPanel Grid.Column="0">
+                <TextBlock Text="META SEMANAL"
+                           FontSize="10" FontWeight="SemiBold"
+                           Foreground="{DynamicResource ZenoTextTertiary}"
+                           LetterSpacing="1"/>
+                <TextBlock FontSize="14"
+                           Foreground="{DynamicResource ZenoTextPrimary}"
+                           Margin="0,4,0,0">
+                  <Run Text="{Binding CompletedWeek}"/>
+                  <Run Text=" de "/>
+                  <Run Text="{Binding WeeklyGoal}"/>
+                  <Run Text=" tarefas"/>
+                </TextBlock>
+              </StackPanel>
+              <TextBlock Grid.Column="1"
+                         FontSize="22" FontWeight="SemiBold"
+                         Foreground="{DynamicResource ZenoAccent}"
+                         VerticalAlignment="Center">
+                <Run Text="{Binding WeeklyProgress, StringFormat={}{0:P0}}"/>
               </TextBlock>
-            </StackPanel>
-            <TextBlock Grid.Column="1"
-                       FontSize="22" FontWeight="SemiBold"
-                       Foreground="{DynamicResource ZenoAccent}"
-                       VerticalAlignment="Center">
-              <Run Text="{Binding WeeklyProgress, StringFormat={}{0:P0}}"/>
-            </TextBlock>
-          </Grid>
+            </Grid>
+            <Border Height="8" CornerRadius="4"
+                    Background="{DynamicResource ZenoBgTertiary}">
+              <Border CornerRadius="4"
+                      Background="{DynamicResource ZenoAccent}"
+                      HorizontalAlignment="Left"
+                      Width="{Binding WeeklyProgress}"/>
+            </Border>
+          </StackPanel>
+        </Border>
 
-          <!-- Barra de progresso -->
-          <Border Height="8" CornerRadius="4"
-                  Background="{DynamicResource ZenoBgTertiary}">
-            <Border CornerRadius="4"
-                    Background="{DynamicResource ZenoAccent}"
-                    HorizontalAlignment="Left"
-                    Width="{Binding WeeklyProgress}"/>
-          </Border>
+        <!-- Água do dia -->
+        <Border Grid.Column="1"
+                Background="{DynamicResource ZenoBgSecondary}"
+                BorderBrush="{DynamicResource ZenoBorderSubtle}"
+                BorderThickness="1" CornerRadius="10"
+                Padding="20,16">
+          <StackPanel Spacing="12">
+            <Grid ColumnDefinitions="*,Auto">
+              <StackPanel Grid.Column="0">
+                <TextBlock Text="HIDRATAÇÃO HOJE"
+                           FontSize="10" FontWeight="SemiBold"
+                           Foreground="{DynamicResource ZenoTextTertiary}"
+                           LetterSpacing="1"/>
+                <TextBlock FontSize="14"
+                           Foreground="{DynamicResource ZenoTextPrimary}"
+                           Margin="0,4,0,0">
+                  <Run Text="{Binding WaterGlasses}"/>
+                  <Run Text=" de "/>
+                  <Run Text="{Binding WaterGoal}"/>
+                  <Run Text=" copos 💧"/>
+                </TextBlock>
+              </StackPanel>
+              <TextBlock Grid.Column="1"
+                         FontSize="22" FontWeight="SemiBold"
+                         Foreground="{DynamicResource ZenoInfo}"
+                         VerticalAlignment="Center">
+                <Run Text="{Binding WaterProgress, StringFormat={}{0:P0}}"/>
+              </TextBlock>
+            </Grid>
+            <Border Height="8" CornerRadius="4"
+                    Background="{DynamicResource ZenoBgTertiary}">
+              <Border CornerRadius="4"
+                      Background="{DynamicResource ZenoInfo}"
+                      HorizontalAlignment="Left"
+                      Width="{Binding WaterProgress}"/>
+            </Border>
+          </StackPanel>
+        </Border>
 
-        </StackPanel>
-      </Border>
+      </Grid>
 
       <!-- Gráfico de barras — últimos 7 dias -->
       <Border Background="{DynamicResource ZenoBgSecondary}"
@@ -178,15 +216,15 @@
                                Foreground="{DynamicResource ZenoTextSecondary}"
                                HorizontalAlignment="Center"/>
 
-                    <!-- Barra -->
-                    <Border Width="28" CornerRadius="4"
-                            Background="{DynamicResource ZenoAccent}"
+                    <Border Width="32" CornerRadius="4"
                             VerticalAlignment="Bottom"
                             MinHeight="4">
+                      <Border.Background>
+                        <SolidColorBrush Color="#6366F1"/>
+                      </Border.Background>
                       <Border.Height>
-                        <MultiBinding>
-                          <Binding Path="Progress"/>
-                        </MultiBinding>
+                        <Binding Path="Progress"
+                                 Converter="{x:Static ObjectConverters.IsNotNull}"/>
                       </Border.Height>
                     </Border>
 
