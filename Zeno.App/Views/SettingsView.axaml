@@ -105,7 +105,7 @@
         </StackPanel>
       </Border>
 
-      <!-- Sobre o Zeno -->
+      <!-- Sobre -->
       <Border Background="{DynamicResource ZenoBgSecondary}"
               BorderBrush="{DynamicResource ZenoBorderSubtle}"
               BorderThickness="1" CornerRadius="10"
@@ -133,24 +133,34 @@
             focar no que está sob nosso controle e agir com intenção.
           </TextBlock>
 
-          <TextBlock Text="❝ Foco sem ruído. ❞"
+          <TextBlock Text="&quot;Foco sem ruído.&quot;"
                      FontSize="13" FontStyle="Italic"
                      Foreground="{DynamicResource ZenoAccent}"/>
 
         </StackPanel>
       </Border>
 
+      <!-- Erro -->
+      <Border IsVisible="{Binding HasError}"
+              Background="{DynamicResource ZenoBgSecondary}"
+              BorderBrush="{DynamicResource ZenoDanger}"
+              BorderThickness="1" CornerRadius="8"
+              Padding="14,10">
+        <TextBlock Text="{Binding ErrorMessage}"
+                   FontSize="13"
+                   Foreground="{DynamicResource ZenoDanger}"/>
+      </Border>
+
       <!-- Ações -->
       <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="10">
 
-        <!-- Feedback de salvo -->
         <Border Grid.Column="0"
                 IsVisible="{Binding Saved}"
                 Background="{DynamicResource ZenoAccentSubtle}"
                 BorderBrush="{DynamicResource ZenoAccent}"
                 BorderThickness="1" CornerRadius="8"
                 Padding="12,8">
-          <TextBlock Text="✓ Configurações salvas"
+          <TextBlock Text="Configurações salvas"
                      FontSize="13"
                      Foreground="{DynamicResource ZenoAccentLight}"
                      VerticalAlignment="Center"/>
