@@ -12,6 +12,7 @@ public partial class MainWindowViewModel : ViewModelBase
 {
     [ObservableProperty] private string  _currentPage  = "Hoje";
     [ObservableProperty] private string  _greeting     = GetGreeting();
+    [ObservableProperty] private string  _userName     = SettingsService.Instance.Current.UserName;
     [ObservableProperty] private Control _currentView;
 
     [ObservableProperty] private string _todayBg     = "#1E1E3A";
@@ -52,11 +53,16 @@ public partial class MainWindowViewModel : ViewModelBase
         WaterFg     = page == "Hidratação"    ? "#818CF8" : "#9494A3";
         StatsFg     = page == "Estatísticas"  ? "#818CF8" : "#9494A3";
 
-        if (page == "Hoje")         _views.Remove("Hoje");
-        if (page == "Próximos")     _views.Remove("Próximos");
-        if (page == "Projetos")     _views.Remove("Projetos");
-        if (page == "Hidratação")   _views.Remove("Hidratação");
-        if (page == "Estatísticas") _views.Remove("Estatísticas");
+        // Atualiza nome se voltou das configurações
+        if (page == "Configurações")
+            UserName = SettingsService.Instance.Current.UserName;
+
+        if (page == "Hoje")          _views.Remove("Hoje");
+        if (page == "Próximos")      _views.Remove("Próximos");
+        if (page == "Projetos")      _views.Remove("Projetos");
+        if (page == "Hidratação")    _views.Remove("Hidratação");
+        if (page == "Estatísticas")  _views.Remove("Estatísticas");
+        if (page == "Configurações") _views.Remove("Configurações");
 
         CurrentView = GetOrCreate(page);
     }
@@ -68,12 +74,13 @@ public partial class MainWindowViewModel : ViewModelBase
 
         Control view = page switch
         {
-            "Próximos"     => new UpcomingView(),
-            "Projetos"     => CreateProjectsView(),
-            "Pomodoro"     => new PomodoroView(),
-            "Hidratação"   => new WaterView(),
-            "Estatísticas" => new StatsView(),
-            _              => new TodayView()
+            "Próximos"      => new UpcomingView(),
+            "Projetos"      => CreateProjectsView(),
+            "Pomodoro"      => new PomodoroView(),
+            "Hidratação"    => new WaterView(),
+            "Estatísticas"  => new StatsView(),
+            "Configurações" => new SettingsView(),
+            _               => new TodayView()
         };
 
         _views[page] = view;
