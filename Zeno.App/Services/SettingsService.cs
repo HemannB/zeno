@@ -6,10 +6,15 @@ namespace Zeno.App.Services;
 
 public class AppSettings
 {
-    public int    WeeklyTaskGoal  { get; set; } = 20;
-    public int    DailyWaterGoal  { get; set; } = 8;
-    public string UserName        { get; set; } = "Bruno";
-    public bool   DarkMode        { get; set; } = true;
+    public int    WeeklyTaskGoal     { get; set; } = 20;
+    public int    DailyWaterGoal     { get; set; } = 8;
+    public string UserName           { get; set; } = "Bruno";
+    public bool   DarkMode           { get; set; } = true;
+
+    // Pomodoro
+    public int    PomodoroFocus      { get; set; } = 25;
+    public int    PomodoroShortBreak { get; set; } = 5;
+    public int    PomodoroLongBreak  { get; set; } = 15;
 }
 
 public class SettingsService
@@ -41,7 +46,7 @@ public class SettingsService
                 return JsonSerializer.Deserialize<AppSettings>(json) ?? new AppSettings();
             }
         }
-        catch { /* usa padrão */ }
+        catch { }
 
         return new AppSettings();
     }
