@@ -1,0 +1,114 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Zeno.App.ViewModels"
+             x:Class="Zeno.App.Views.UpcomingView"
+             x:DataType="vm:UpcomingViewModel">
+
+  <DockPanel>
+
+    <!-- Header -->
+    <Border DockPanel.Dock="Top" Padding="28,24,28,0">
+      <Grid ColumnDefinitions="*,Auto">
+        <StackPanel Grid.Column="0">
+          <TextBlock Text="Próximos"
+                     FontSize="20" FontWeight="SemiBold"
+                     Foreground="{DynamicResource ZenoTextPrimary}"/>
+          <TextBlock FontSize="13"
+                     Foreground="{DynamicResource ZenoTextSecondary}"
+                     Margin="0,2,0,0">
+            <Run Text="{Binding TotalCount}"/>
+            <Run Text=" tarefas futuras"/>
+          </TextBlock>
+        </StackPanel>
+        <Button Grid.Column="1"
+                Command="{Binding RefreshCommand}"
+                Background="Transparent"
+                BorderBrush="{DynamicResource ZenoBorderDefault}"
+                BorderThickness="1"
+                Foreground="{DynamicResource ZenoTextSecondary}"
+                CornerRadius="8" Padding="12,6"
+                FontSize="12" VerticalAlignment="Center">
+          Atualizar
+        </Button>
+      </Grid>
+    </Border>
+
+    <!-- Estado vazio -->
+    <Border IsVisible="{Binding TotalCount, 
+                        Converter={x:Static ObjectConverters.IsNull}}"
+            Padding="0,60">
+      <StackPanel HorizontalAlignment="Center" Spacing="8">
+        <TextBlock Text="Nenhuma tarefa futura"
+                   FontSize="14"
+                   Foreground="{DynamicResource ZenoTextTertiary}"
+                   HorizontalAlignment="Center"/>
+        <TextBlock Text="Tarefas com data futura aparecerão aqui"
+                   FontSize="12"
+                   Foreground="{DynamicResource ZenoTextTertiary}"
+                   HorizontalAlignment="Center"/>
+      </StackPanel>
+    </Border>
+
+    <!-- Lista agrupada -->
+    <ScrollViewer Margin="28,16,28,24" VerticalScrollBarVisibility="Auto">
+      <ItemsControl ItemsSource="{Binding Groups}">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate x:DataType="vm:UpcomingGroupViewModel">
+            <StackPanel Spacing="4" Margin="0,0,0,16">
+
+              <!-- Label do grupo -->
+              <TextBlock Text="{Binding Label}"
+                         FontSize="11" FontWeight="SemiBold"
+                         Foreground="{DynamicResource ZenoTextTertiary}"
+                         Margin="4,0,0,4"/>
+
+              <!-- Tarefas do grupo -->
+              <ItemsControl ItemsSource="{Binding Tasks}">
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate x:DataType="vm:TaskItemViewModel">
+                    <Border Background="{DynamicResource ZenoBgSecondary}"
+                            BorderBrush="{DynamicResource ZenoBorderSubtle}"
+                            BorderThickness="1" CornerRadius="10"
+                            Margin="0,0,0,4">
+                      <Grid ColumnDefinitions="Auto,*,Auto" Margin="16,14">
+
+                        <CheckBox Grid.Column="0"
+                                  IsChecked="{Binding IsCompleted}"
+                                  VerticalAlignment="Center"
+                                  Margin="0,0,12,0"/>
+
+                        <StackPanel Grid.Column="1" Spacing="5" VerticalAlignment="Center">
+                          <TextBlock Text="{Binding Title}"
+                                     FontSize="14"
+                                     Foreground="{DynamicResource ZenoTextPrimary}"/>
+                          <Border CornerRadius="4" Padding="6,2"
+                                  HorizontalAlignment="Left">
+                            <Border.Background>
+                              <SolidColorBrush Color="{Binding PriorityColor}"/>
+                            </Border.Background>
+                            <TextBlock Text="{Binding Priority}"
+                                       FontSize="10" FontWeight="Medium"
+                                       Foreground="White"/>
+                          </Border>
+                        </StackPanel>
+
+                        <TextBlock Grid.Column="2"
+                                   Text="{Binding DueTime}"
+                                   FontSize="12"
+                                   Foreground="{DynamicResource ZenoTextTertiary}"
+                                   VerticalAlignment="Center"/>
+
+                      </Grid>
+                    </Border>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+
+            </StackPanel>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </ScrollViewer>
+
+  </DockPanel>
+</UserControl>
