@@ -10,8 +10,8 @@ public class TimerService : IDisposable
     private readonly Timer _timer;
     private int _secondsRemaining;
 
-    public TimerState State     { get; private set; } = TimerState.Idle;
-    public bool        IsActive { get; private set; } = false;
+    public TimerState State             { get; private set; } = TimerState.Idle;
+    public bool        IsActive         { get; private set; } = false;
     public int         PomodorosCompleted { get; private set; } = 0;
 
     public int SecondsRemaining => _secondsRemaining;
@@ -20,24 +20,21 @@ public class TimerService : IDisposable
     public event Action? Tick;
     public event Action? SessionCompleted;
 
-    // Durações configuráveis (em segundos)
-    public int FocusDuration      { get; set; } = 25 * 60;
-    public int ShortBreakDuration { get; set; } = 5  * 60;
-    public int LongBreakDuration  { get; set; } = 15 * 60;
+    // Lê durações do SettingsService
+    private int FocusDuration      => SettingsService.Instance.Current.PomodoroFocus      * 60;
+    private int ShortBreakDuration => SettingsService.Instance.Current.PomodoroShortBreak * 60;
+    private int LongBreakDuration  => SettingsService.Instance.Current.PomodoroLongBreak  * 60;
 
     public TimerService()
     {
         _timer          = new Timer(1000);
         _timer.Elapsed += OnTick;
+        SetState(TimerState.Focus);
     }
 
     public void Start()
     {
         if (IsActive) return;
-
-        if (State == TimerState.Idle)
-            SetState(TimerState.Focus);
-
         IsActive = true;
         _timer.Start();
     }
@@ -51,7 +48,6 @@ public class TimerService : IDisposable
     public void Reset()
     {
         Pause();
-        State = TimerState.Idle;
         SetState(TimerState.Focus);
         Tick?.Invoke();
     }
