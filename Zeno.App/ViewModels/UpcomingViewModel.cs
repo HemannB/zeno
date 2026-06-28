@@ -27,7 +27,7 @@ public partial class UpcomingViewModel : ViewModelBase
 {
     [ObservableProperty] private ObservableCollection<UpcomingGroupViewModel> _groups = [];
     [ObservableProperty] private int    _totalCount;
-    [ObservableProperty] private TaskDetailViewModel? _selectedTask;
+    [ObservableProperty] private UpcomingTaskDetailViewModel? _selectedTask;
     [ObservableProperty] private bool   _isDetailOpen;
 
     private List<TaskItemViewModel> AllTasks =>
@@ -61,6 +61,7 @@ public partial class UpcomingViewModel : ViewModelBase
         };
     }
 
+    [RelayCommand]
     public void SelectTask(TaskItemViewModel item)
     {
         foreach (var t in AllTasks)
