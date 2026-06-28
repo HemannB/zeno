@@ -73,6 +73,13 @@
             <TextBlock Text="Hidratação" FontSize="13" Foreground="{Binding WaterFg}"/>
           </Button>
 
+          <Button Command="{Binding NavigateCommand}" CommandParameter="Estatísticas"
+                  HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                  BorderThickness="0" Padding="12,10" CornerRadius="8"
+                  Background="{Binding StatsBg}">
+            <TextBlock Text="Estatísticas" FontSize="13" Foreground="{Binding StatsFg}"/>
+          </Button>
+
         </StackPanel>
 
         <!-- Rodapé -->
@@ -111,7 +118,6 @@
         </StackPanel>
       </Border>
 
-      <!-- Page atual -->
       <ContentControl Content="{Binding CurrentView}"/>
 
     </DockPanel>
