@@ -23,15 +23,12 @@
               BorderThickness="1" CornerRadius="10"
               Padding="20,16">
         <StackPanel Spacing="14">
-
           <TextBlock Text="PERFIL"
                      FontSize="10" FontWeight="SemiBold"
                      Foreground="{DynamicResource ZenoTextTertiary}"
                      LetterSpacing="1"/>
-
           <StackPanel Spacing="6">
-            <TextBlock Text="Seu nome"
-                       FontSize="13"
+            <TextBlock Text="Seu nome" FontSize="13"
                        Foreground="{DynamicResource ZenoTextSecondary}"/>
             <TextBox Text="{Binding UserName}"
                      Background="{DynamicResource ZenoBgTertiary}"
@@ -40,7 +37,6 @@
                      Foreground="{DynamicResource ZenoTextPrimary}"
                      Padding="12,10" FontSize="14"/>
           </StackPanel>
-
         </StackPanel>
       </Border>
 
@@ -50,53 +46,104 @@
               BorderThickness="1" CornerRadius="10"
               Padding="20,16">
         <StackPanel Spacing="14">
-
           <TextBlock Text="METAS"
                      FontSize="10" FontWeight="SemiBold"
                      Foreground="{DynamicResource ZenoTextTertiary}"
                      LetterSpacing="1"/>
 
           <StackPanel Spacing="6">
-            <TextBlock Text="Meta semanal de tarefas"
-                       FontSize="13"
+            <TextBlock Text="Meta semanal de tarefas" FontSize="13"
                        Foreground="{DynamicResource ZenoTextSecondary}"/>
             <TextBlock Text="Quantas tarefas você quer concluir por semana?"
-                       FontSize="11"
-                       Foreground="{DynamicResource ZenoTextTertiary}"/>
+                       FontSize="11" Foreground="{DynamicResource ZenoTextTertiary}"/>
             <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
-              <TextBox Grid.Column="0"
-                       Text="{Binding WeeklyTaskGoal}"
+              <TextBox Grid.Column="0" Text="{Binding WeeklyTaskGoal}"
                        Background="{DynamicResource ZenoBgTertiary}"
                        BorderBrush="{DynamicResource ZenoBorderDefault}"
                        BorderThickness="1" CornerRadius="8"
                        Foreground="{DynamicResource ZenoTextPrimary}"
                        Padding="12,10" FontSize="14"/>
-              <TextBlock Grid.Column="1"
-                         Text="tarefas"
-                         FontSize="13"
+              <TextBlock Grid.Column="1" Text="tarefas" FontSize="13"
                          Foreground="{DynamicResource ZenoTextTertiary}"
                          VerticalAlignment="Center"/>
             </Grid>
           </StackPanel>
 
           <StackPanel Spacing="6">
-            <TextBlock Text="Meta diária de água"
-                       FontSize="13"
+            <TextBlock Text="Meta diária de água" FontSize="13"
                        Foreground="{DynamicResource ZenoTextSecondary}"/>
             <TextBlock Text="Quantos copos de água você quer beber por dia?"
-                       FontSize="11"
-                       Foreground="{DynamicResource ZenoTextTertiary}"/>
+                       FontSize="11" Foreground="{DynamicResource ZenoTextTertiary}"/>
             <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
-              <TextBox Grid.Column="0"
-                       Text="{Binding DailyWaterGoal}"
+              <TextBox Grid.Column="0" Text="{Binding DailyWaterGoal}"
                        Background="{DynamicResource ZenoBgTertiary}"
                        BorderBrush="{DynamicResource ZenoBorderDefault}"
                        BorderThickness="1" CornerRadius="8"
                        Foreground="{DynamicResource ZenoTextPrimary}"
                        Padding="12,10" FontSize="14"/>
-              <TextBlock Grid.Column="1"
-                         Text="copos"
-                         FontSize="13"
+              <TextBlock Grid.Column="1" Text="copos" FontSize="13"
+                         Foreground="{DynamicResource ZenoTextTertiary}"
+                         VerticalAlignment="Center"/>
+            </Grid>
+          </StackPanel>
+
+        </StackPanel>
+      </Border>
+
+      <!-- Pomodoro -->
+      <Border Background="{DynamicResource ZenoBgSecondary}"
+              BorderBrush="{DynamicResource ZenoBorderSubtle}"
+              BorderThickness="1" CornerRadius="10"
+              Padding="20,16">
+        <StackPanel Spacing="14">
+          <TextBlock Text="POMODORO"
+                     FontSize="10" FontWeight="SemiBold"
+                     Foreground="{DynamicResource ZenoTextTertiary}"
+                     LetterSpacing="1"/>
+
+          <StackPanel Spacing="6">
+            <TextBlock Text="Tempo de foco" FontSize="13"
+                       Foreground="{DynamicResource ZenoTextSecondary}"/>
+            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+              <TextBox Grid.Column="0" Text="{Binding PomodoroFocus}"
+                       Background="{DynamicResource ZenoBgTertiary}"
+                       BorderBrush="{DynamicResource ZenoBorderDefault}"
+                       BorderThickness="1" CornerRadius="8"
+                       Foreground="{DynamicResource ZenoTextPrimary}"
+                       Padding="12,10" FontSize="14"/>
+              <TextBlock Grid.Column="1" Text="minutos" FontSize="13"
+                         Foreground="{DynamicResource ZenoTextTertiary}"
+                         VerticalAlignment="Center"/>
+            </Grid>
+          </StackPanel>
+
+          <StackPanel Spacing="6">
+            <TextBlock Text="Pausa curta" FontSize="13"
+                       Foreground="{DynamicResource ZenoTextSecondary}"/>
+            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+              <TextBox Grid.Column="0" Text="{Binding PomodoroShortBreak}"
+                       Background="{DynamicResource ZenoBgTertiary}"
+                       BorderBrush="{DynamicResource ZenoBorderDefault}"
+                       BorderThickness="1" CornerRadius="8"
+                       Foreground="{DynamicResource ZenoTextPrimary}"
+                       Padding="12,10" FontSize="14"/>
+              <TextBlock Grid.Column="1" Text="minutos" FontSize="13"
+                         Foreground="{DynamicResource ZenoTextTertiary}"
+                         VerticalAlignment="Center"/>
+            </Grid>
+          </StackPanel>
+
+          <StackPanel Spacing="6">
+            <TextBlock Text="Pausa longa" FontSize="13"
+                       Foreground="{DynamicResource ZenoTextSecondary}"/>
+            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+              <TextBox Grid.Column="0" Text="{Binding PomodoroLongBreak}"
+                       Background="{DynamicResource ZenoBgTertiary}"
+                       BorderBrush="{DynamicResource ZenoBorderDefault}"
+                       BorderThickness="1" CornerRadius="8"
+                       Foreground="{DynamicResource ZenoTextPrimary}"
+                       Padding="12,10" FontSize="14"/>
+              <TextBlock Grid.Column="1" Text="minutos" FontSize="13"
                          Foreground="{DynamicResource ZenoTextTertiary}"
                          VerticalAlignment="Center"/>
             </Grid>
@@ -111,32 +158,25 @@
               BorderThickness="1" CornerRadius="10"
               Padding="20,16">
         <StackPanel Spacing="10">
-
           <TextBlock Text="SOBRE"
                      FontSize="10" FontWeight="SemiBold"
                      Foreground="{DynamicResource ZenoTextTertiary}"
                      LetterSpacing="1"/>
-
           <StackPanel Spacing="4">
-            <TextBlock Text="Zeno"
-                       FontSize="16" FontWeight="SemiBold"
+            <TextBlock Text="Zeno" FontSize="16" FontWeight="SemiBold"
                        Foreground="{DynamicResource ZenoTextPrimary}"/>
-            <TextBlock Text="Versão 0.1.0"
-                       FontSize="12"
+            <TextBlock Text="Versão 0.1.0" FontSize="12"
                        Foreground="{DynamicResource ZenoTextTertiary}"/>
           </StackPanel>
-
           <TextBlock TextWrapping="Wrap" FontSize="13" LineHeight="20"
                      Foreground="{DynamicResource ZenoTextSecondary}">
             Zeno é inspirado em Zenão de Cítio (334–262 a.C.), fundador do
             Estoicismo. Sua filosofia ensina disciplina, foco e equilíbrio —
             focar no que está sob nosso controle e agir com intenção.
           </TextBlock>
-
           <TextBlock Text="&quot;Foco sem ruído.&quot;"
                      FontSize="13" FontStyle="Italic"
                      Foreground="{DynamicResource ZenoAccent}"/>
-
         </StackPanel>
       </Border>
 
@@ -153,7 +193,6 @@
 
       <!-- Ações -->
       <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="10">
-
         <Border Grid.Column="0"
                 IsVisible="{Binding Saved}"
                 Background="{DynamicResource ZenoAccentSubtle}"
@@ -172,8 +211,7 @@
                 BorderBrush="{DynamicResource ZenoBorderDefault}"
                 BorderThickness="1"
                 Foreground="{DynamicResource ZenoTextSecondary}"
-                CornerRadius="8" Padding="16,10"
-                FontSize="13">
+                CornerRadius="8" Padding="16,10" FontSize="13">
           Restaurar padrões
         </Button>
 
@@ -181,11 +219,9 @@
                 Command="{Binding SaveCommand}"
                 Background="{DynamicResource ZenoAccent}"
                 Foreground="White"
-                CornerRadius="8" Padding="20,10"
-                FontSize="13">
+                CornerRadius="8" Padding="20,10" FontSize="13">
           Salvar
         </Button>
-
       </Grid>
 
     </StackPanel>
