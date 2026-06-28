@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
@@ -26,21 +25,22 @@ public partial class StatsViewModel : ViewModelBase
 {
     [ObservableProperty] private int    _completedToday;
     [ObservableProperty] private int    _completedWeek;
-    [ObservableProperty] private int    _weeklyGoal     = 20;
+    [ObservableProperty] private int    _weeklyGoal;
     [ObservableProperty] private double _weeklyProgress;
     [ObservableProperty] private int    _streak;
     [ObservableProperty] private int    _pomodorosToday;
     [ObservableProperty] private int    _waterGlasses;
     [ObservableProperty] private int    _waterGoal;
     [ObservableProperty] private double _waterProgress;
-    [ObservableProperty] private string _weekLabel      = string.Empty;
+    [ObservableProperty] private string _weekLabel = string.Empty;
     [ObservableProperty] private ObservableCollection<DayStatViewModel> _daySats = [];
 
     public StatsViewModel() => Load();
 
     private void Load()
     {
-        var today = DateTime.Today;
+        var today    = DateTime.Today;
+        var settings = SettingsService.Instance.Current;
 
         var startOfWeek = today.AddDays(-(int)today.DayOfWeek + (int)DayOfWeek.Monday);
         if (today.DayOfWeek == DayOfWeek.Sunday)
@@ -48,17 +48,19 @@ public partial class StatsViewModel : ViewModelBase
 
         WeekLabel = $"{startOfWeek:d MMM} – {startOfWeek.AddDays(6):d MMM}";
 
-        CompletedToday  = DataService.Instance.Tasks.GetCompleted(today).Count();
-        CompletedWeek   = DataService.Instance.Tasks.CountCompletedThisWeek();
-        WeeklyProgress  = WeeklyGoal > 0
+        // Meta semanal vem do SettingsService
+        WeeklyGoal     = settings.WeeklyTaskGoal;
+        CompletedToday = DataService.Instance.Tasks.GetCompleted(today).Count();
+        CompletedWeek  = DataService.Instance.Tasks.CountCompletedThisWeek();
+        WeeklyProgress = WeeklyGoal > 0
             ? Math.Min(1.0, (double)CompletedWeek / WeeklyGoal) : 0;
-        PomodorosToday  = DataService.Instance.Pomodoro.CountToday();
-        Streak          = CalculateStreak();
+        PomodorosToday = DataService.Instance.Pomodoro.CountToday();
+        Streak         = CalculateStreak();
 
         // Água
-        var water    = DataService.Instance.Water.GetToday();
-        WaterGlasses = water.Glasses;
-        WaterGoal    = water.Goal;
+        var water     = DataService.Instance.Water.GetToday();
+        WaterGlasses  = water.Glasses;
+        WaterGoal     = settings.DailyWaterGoal;
         WaterProgress = WaterGoal > 0
             ? Math.Min(1.0, (double)WaterGlasses / WaterGoal) : 0;
 
