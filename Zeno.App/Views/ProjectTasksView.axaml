@@ -1,134 +1,148 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:Zeno.App.ViewModels"
+             xmlns:views="using:Zeno.App.Views"
              x:Class="Zeno.App.Views.ProjectTasksView"
              x:DataType="vm:ProjectTasksViewModel">
 
-  <DockPanel>
+  <Grid ColumnDefinitions="*,Auto">
 
-    <!-- Header -->
-    <Border DockPanel.Dock="Top" Padding="28,24,28,0">
-      <StackPanel Spacing="4">
+    <!-- Lista principal -->
+    <DockPanel Grid.Column="0">
 
-        <!-- Botão voltar -->
-        <Button Command="{Binding GoBackCommand}"
-                Background="Transparent"
-                BorderThickness="0"
-                Padding="0,0,0,8"
-                Foreground="{DynamicResource ZenoTextTertiary}"
-                FontSize="12">
-          ← Voltar para Projetos
-        </Button>
-
-        <Grid ColumnDefinitions="Auto,*,Auto">
-
-          <!-- Dot de cor + nome -->
-          <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="10"
-                      VerticalAlignment="Center">
-            <Ellipse Width="14" Height="14"
-                     Fill="{Binding ProjectColor}"
-                     VerticalAlignment="Center"/>
-            <TextBlock Text="{Binding ProjectName}"
-                       FontSize="20" FontWeight="SemiBold"
-                       Foreground="{DynamicResource ZenoTextPrimary}"/>
-          </StackPanel>
-
-          <!-- Contador -->
-          <Border Grid.Column="2"
-                  Background="{DynamicResource ZenoBgSecondary}"
-                  BorderBrush="{DynamicResource ZenoBorderDefault}"
-                  BorderThickness="1" CornerRadius="10"
-                  Padding="12,4" VerticalAlignment="Center">
-            <TextBlock FontSize="13"
-                       Foreground="{DynamicResource ZenoTextSecondary}">
-              <Run Text="{Binding PendingCount}"/>
-              <Run Text=" pendentes"/>
-            </TextBlock>
-          </Border>
-
-        </Grid>
-      </StackPanel>
-    </Border>
-
-    <!-- Input nova tarefa -->
-    <Border DockPanel.Dock="Top" Margin="28,16,28,0"
-            Background="{DynamicResource ZenoBgSecondary}"
-            BorderBrush="{DynamicResource ZenoBorderDefault}"
-            BorderThickness="1" CornerRadius="10">
-      <Grid ColumnDefinitions="*,Auto" Margin="16,0">
-        <TextBox Grid.Column="0"
-                 Text="{Binding NewTaskTitle}"
-                 PlaceholderText="Adicionar tarefa ao projeto..."
-                 Background="Transparent"
-                 BorderThickness="0"
-                 FontSize="14"
-                 Foreground="{DynamicResource ZenoTextPrimary}"
-                 Padding="0,12">
-          <TextBox.KeyBindings>
-            <KeyBinding Gesture="Return" Command="{Binding AddTaskCommand}"/>
-          </TextBox.KeyBindings>
-        </TextBox>
-        <Button Grid.Column="1"
-                Command="{Binding AddTaskCommand}"
-                Background="{DynamicResource ZenoAccent}"
-                Foreground="White"
-                CornerRadius="6"
-                Padding="16,6"
-                Margin="0,6"
-                FontSize="13">
-          Adicionar
-        </Button>
-      </Grid>
-    </Border>
-
-    <!-- Lista de tarefas -->
-    <ScrollViewer Margin="28,12,28,24" VerticalScrollBarVisibility="Auto">
-      <ItemsControl ItemsSource="{Binding Tasks}">
-        <ItemsControl.ItemTemplate>
-          <DataTemplate x:DataType="vm:TaskItemViewModel">
-            <Border Background="{DynamicResource ZenoBgSecondary}"
-                    BorderBrush="{DynamicResource ZenoBorderSubtle}"
-                    BorderThickness="1" CornerRadius="10"
-                    Margin="0,0,0,4">
-              <Grid ColumnDefinitions="Auto,*,Auto" Margin="16,14">
-
-                <CheckBox Grid.Column="0"
-                          IsChecked="{Binding IsCompleted}"
-                          VerticalAlignment="Center"
-                          Margin="0,0,12,0"/>
-
-                <StackPanel Grid.Column="1" Spacing="4" VerticalAlignment="Center">
-                  <TextBlock Text="{Binding Title}"
-                             FontSize="14"
-                             Foreground="{DynamicResource ZenoTextPrimary}"/>
-                  <Border CornerRadius="4" Padding="6,2" HorizontalAlignment="Left">
-                    <Border.Background>
-                      <SolidColorBrush Color="{Binding PriorityColor}"/>
-                    </Border.Background>
-                    <TextBlock Text="{Binding Priority}"
-                               FontSize="10" FontWeight="Medium"
-                               Foreground="White"/>
-                  </Border>
-                </StackPanel>
-
-                <Button Grid.Column="2"
-                        Command="{Binding $parent[ItemsControl].((vm:ProjectTasksViewModel)DataContext).DeleteCommand}"
-                        CommandParameter="{Binding}"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        Padding="8,4"
-                        Foreground="{DynamicResource ZenoTextTertiary}"
-                        FontSize="12"
+      <!-- Header -->
+      <Border DockPanel.Dock="Top" Padding="28,24,28,0">
+        <StackPanel Spacing="4">
+          <Button Command="{Binding GoBackCommand}"
+                  Background="Transparent"
+                  BorderThickness="0"
+                  Padding="0,0,0,8"
+                  Foreground="{DynamicResource ZenoTextTertiary}"
+                  FontSize="12">
+            ← Voltar para Projetos
+          </Button>
+          <Grid ColumnDefinitions="Auto,*,Auto">
+            <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="10"
                         VerticalAlignment="Center">
-                  ✕
-                </Button>
-
-              </Grid>
+              <Ellipse Width="14" Height="14"
+                       Fill="{Binding ProjectColor}"
+                       VerticalAlignment="Center"/>
+              <TextBlock Text="{Binding ProjectName}"
+                         FontSize="20" FontWeight="SemiBold"
+                         Foreground="{DynamicResource ZenoTextPrimary}"/>
+            </StackPanel>
+            <Border Grid.Column="2"
+                    Background="{DynamicResource ZenoBgSecondary}"
+                    BorderBrush="{DynamicResource ZenoBorderDefault}"
+                    BorderThickness="1" CornerRadius="10"
+                    Padding="12,4" VerticalAlignment="Center">
+              <TextBlock FontSize="13"
+                         Foreground="{DynamicResource ZenoTextSecondary}">
+                <Run Text="{Binding PendingCount}"/>
+                <Run Text=" pendentes"/>
+              </TextBlock>
             </Border>
-          </DataTemplate>
-        </ItemsControl.ItemTemplate>
-      </ItemsControl>
-    </ScrollViewer>
+          </Grid>
+        </StackPanel>
+      </Border>
 
-  </DockPanel>
+      <!-- Input nova tarefa -->
+      <Border DockPanel.Dock="Top" Margin="28,16,28,0"
+              Background="{DynamicResource ZenoBgSecondary}"
+              BorderBrush="{DynamicResource ZenoBorderDefault}"
+              BorderThickness="1" CornerRadius="10">
+        <Grid ColumnDefinitions="*,Auto" Margin="16,0">
+          <TextBox Grid.Column="0"
+                   Text="{Binding NewTaskTitle}"
+                   PlaceholderText="Adicionar tarefa ao projeto..."
+                   Background="Transparent"
+                   BorderThickness="0"
+                   FontSize="14"
+                   Foreground="{DynamicResource ZenoTextPrimary}"
+                   Padding="0,12">
+            <TextBox.KeyBindings>
+              <KeyBinding Gesture="Return" Command="{Binding AddTaskCommand}"/>
+            </TextBox.KeyBindings>
+          </TextBox>
+          <Button Grid.Column="1"
+                  Command="{Binding AddTaskCommand}"
+                  Background="{DynamicResource ZenoAccent}"
+                  Foreground="White"
+                  CornerRadius="6" Padding="16,6"
+                  Margin="0,6" FontSize="13">
+            Adicionar
+          </Button>
+        </Grid>
+      </Border>
+
+      <!-- Lista -->
+      <ScrollViewer Margin="28,12,28,24" VerticalScrollBarVisibility="Auto">
+        <ItemsControl ItemsSource="{Binding Tasks}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate x:DataType="vm:TaskItemViewModel">
+              <Border Background="{DynamicResource ZenoBgSecondary}"
+                      BorderBrush="{DynamicResource ZenoBorderSubtle}"
+                      BorderThickness="1" CornerRadius="10"
+                      Margin="0,0,0,4">
+                <Grid ColumnDefinitions="Auto,*,Auto,Auto" Margin="16,14">
+
+                  <CheckBox Grid.Column="0"
+                            IsChecked="{Binding IsCompleted}"
+                            VerticalAlignment="Center"
+                            Margin="0,0,12,0"/>
+
+                  <StackPanel Grid.Column="1" Spacing="5" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding Title}"
+                               FontSize="14"
+                               Foreground="{DynamicResource ZenoTextPrimary}"/>
+                    <Border CornerRadius="4" Padding="6,2" HorizontalAlignment="Left">
+                      <Border.Background>
+                        <SolidColorBrush Color="{Binding PriorityColor}"/>
+                      </Border.Background>
+                      <TextBlock Text="{Binding Priority}"
+                                 FontSize="10" FontWeight="Medium"
+                                 Foreground="White"/>
+                    </Border>
+                  </StackPanel>
+
+                  <Button Grid.Column="2"
+                          Command="{Binding $parent[ItemsControl].((vm:ProjectTasksViewModel)DataContext).ToggleCompleteCommand}"
+                          CommandParameter="{Binding}"
+                          Background="Transparent"
+                          BorderThickness="0"
+                          Padding="8,4"
+                          Foreground="{DynamicResource ZenoTextTertiary}"
+                          FontSize="12"
+                          VerticalAlignment="Center">
+                    ✓
+                  </Button>
+
+                  <Button Grid.Column="3"
+                          Command="{Binding $parent[ItemsControl].((vm:ProjectTasksViewModel)DataContext).SelectTaskCommand}"
+                          CommandParameter="{Binding}"
+                          Background="Transparent"
+                          BorderThickness="0"
+                          Padding="8,4"
+                          Foreground="{DynamicResource ZenoTextTertiary}"
+                          FontSize="16"
+                          VerticalAlignment="Center">
+                    ···
+                  </Button>
+
+                </Grid>
+              </Border>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </ScrollViewer>
+
+    </DockPanel>
+
+    <!-- Painel de detalhe -->
+    <Border Grid.Column="1"
+            IsVisible="{Binding IsDetailOpen}">
+      <views:ProjectTaskDetailPanel DataContext="{Binding SelectedTask}"/>
+    </Border>
+
+  </Grid>
 </UserControl>
