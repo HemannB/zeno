@@ -109,7 +109,7 @@
         <StackPanel>
           <TextBlock FontSize="22" FontWeight="SemiBold"
                      Foreground="{DynamicResource ZenoTextPrimary}">
-            <Run Text="{Binding Greeting}"/><Run Text=", Bruno! 👋"/>
+            <Run Text="{Binding Greeting}"/><Run Text=", " /><Run Text="{Binding UserName}"/><Run Text="! 👋"/>
           </TextBlock>
           <TextBlock FontSize="13"
                      Foreground="{DynamicResource ZenoTextSecondary}"
