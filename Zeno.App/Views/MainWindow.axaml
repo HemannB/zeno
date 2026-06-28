@@ -45,18 +45,9 @@
 
           <Button Command="{Binding NavigateCommand}" CommandParameter="Próximos"
                   HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
-                  Background="Transparent" BorderThickness="0"
-                  Padding="12,10" CornerRadius="8">
-            <TextBlock Text="Próximos" FontSize="13"
-                       Foreground="{DynamicResource ZenoTextSecondary}"/>
-          </Button>
-
-          <Button Command="{Binding NavigateCommand}" CommandParameter="Calendário"
-                  HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
-                  Background="Transparent" BorderThickness="0"
-                  Padding="12,10" CornerRadius="8">
-            <TextBlock Text="Calendário" FontSize="13"
-                       Foreground="{DynamicResource ZenoTextSecondary}"/>
+                  BorderThickness="0" Padding="12,10" CornerRadius="8"
+                  Background="{Binding UpcomingBg}">
+            <TextBlock Text="Próximos" FontSize="13" Foreground="{Binding UpcomingFg}"/>
           </Button>
 
           <Button Command="{Binding NavigateCommand}" CommandParameter="Projetos"
